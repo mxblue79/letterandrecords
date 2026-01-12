@@ -1,36 +1,43 @@
 import { SecretZone } from '../components/SecretZone';
+import { Link } from 'react-router-dom';
 
 export function Info() {
     const services = [
         {
             category: '아트디렉팅&디자인',
+            linkKey: 'art_design',
             items: ['웹 / 앱 / 3D / 모션그래픽', 'PPT 및 보고서', '리플렛, 단행본 디자인']
         },
         {
             category: '출판',
+            linkKey: 'publishing',
             items: ['자체 출판 / 출판 대행', '아카이빙 / 출판 컨설팅']
         },
         {
             category: '홍보',
+            linkKey: 'promotion',
             items: ['홍보물 제작 / 웹배너', '카드뉴스 / 숏츠', '홍보 영상 / 홍보 대행']
         },
         {
             category: '영상',
+            linkKey: 'video',
             items: ['홍보 영상 / 쇼츠', '스케치', '온라인 라이브 방송']
         },
         {
             category: '웹 서비스',
+            linkKey: 'web_service',
             items: ['웹배너 & 랜딩 페이지 제작', '상세 페이지 제작', '홈페이지 제작', '웹 및 앱 제작']
         },
         {
             category: '행사',
+            linkKey: 'event',
             items: ['교육 프로그램 진행', '전시회 운영 / 기념식 운영', '공연 운영 / 기타 행사']
         },
         {
             category: '책방곱셈',
+            linkKey: 'bookstore',
             items: ['문화공간 책방곱셈 운영', '북콘서트 / 음악콘서트 / 전시 / 각종 모임 대관']
         }
-
     ];
 
     const history = [
@@ -144,11 +151,14 @@ export function Info() {
                     <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">Service</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
                         {services.map((s, i) => (
-                            <div key={i}>
-                                <h3 className="text-lg font-bold mb-3 flex items-center gap-3">
-                                    <span className="w-[2px] h-[20px] bg-black shrink-0"></span>
-                                    {s.category}
-                                </h3>
+                            <div key={i} className="group">
+                                <Link to={`/?filter=${s.linkKey}`} className="block">
+                                    <h3 className="text-lg font-bold mb-3 flex items-center gap-3 transition-colors group-hover:text-zinc-600 cursor-pointer">
+                                        <span className="w-[2px] h-[20px] bg-black shrink-0 transition-colors group-hover:bg-zinc-400"></span>
+                                        {s.category}
+                                        <span className="text-[10px] text-zinc-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+                                    </h3>
+                                </Link>
                                 <ul className="space-y-1">
                                     {s.items.map((item, idx) => (
                                         <li key={idx} className="text-zinc-800 text-sm md:text-base leading-relaxed break-keep">
