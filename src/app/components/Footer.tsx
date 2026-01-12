@@ -22,7 +22,7 @@ export function Footer() {
         <div className="flex flex-col space-y-4">
           <h4 className="font-medium text-black">Contact</h4>
           <div className="flex flex-col space-y-2">
-            <a href="mailto:hello@textandrecord.kr" className="hover:text-black transition-colors">hello@textandrecord.kr</a>
+            <a href="mailto:letternrecords@gmail.com" className="hover:text-black transition-colors">letternrecords@gmail.com</a>
             <span className="text-xs text-muted-foreground">Seoul, Republic of Korea</span>
           </div>
         </div>
