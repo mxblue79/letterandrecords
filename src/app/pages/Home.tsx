@@ -177,7 +177,8 @@ export function Home() {
       'video': ['영상', '모션', '모션그래픽', '영상 & 모션그래픽'],
       'web_service': ['웹', '앱', '웹 서비스', '아카이브/웹/앱'],
       'event': ['행사', '전시', '행사 & 전시 운영'],
-      'bookstore': ['서점', '책방', '서점 운영', '책방 곱셈']
+      'bookstore': ['서점', '책방', '서점 운영', '책방 곱셈'],
+      'original_publishing': ['자체 출판', 'Originals']
     };
 
     const targetCategories = categoryMap[filter];

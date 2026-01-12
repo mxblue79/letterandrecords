@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 
 const mainNavigation = [
   { name: 'Portfolio', path: '/portfolio' },
+  { name: 'Originals', path: '/originals' },
   { name: 'BookstoretheX', path: '/bookstore' },
   { name: 'Contact', path: '/contact' },
 ];

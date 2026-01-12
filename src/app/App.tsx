@@ -9,6 +9,7 @@ import { Services } from './pages/Services';
 import { Portfolio } from './pages/Portfolio';
 import { Bookstore } from './pages/Bookstore';
 import { BookstoreDetail } from './pages/BookstoreDetail';
+import { Originals } from './pages/Originals';
 import { Contact } from './pages/Contact';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/portfolio" element={<Home />} />
             <Route path="/bookstore" element={<Bookstore />} />
             <Route path="/bookstore/:id" element={<BookstoreDetail />} />
+            <Route path="/originals" element={<Originals />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
