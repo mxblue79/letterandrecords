@@ -33,8 +33,9 @@ export function SecretZone() {
     const centeringProgressRef = useRef(0);
     const timeRef = useRef(0);
 
-    // Density tuning: 3 is a sweet spot for 10px font 
-    const SAMPLE_GAP = 3;
+    // Critical: Gap must be close  // Ultra-High Fidelity for complex characters (ㄹ, ㅇ)
+    const SAMPLE_GAP = 2;
+    const PARTICLE_FONT_SIZE = 6;
 
     useEffect(() => {
         const container = containerRef.current;
@@ -53,15 +54,16 @@ export function SecretZone() {
             canvas.style.width = `${width}px`;
             canvas.style.height = `${height}px`;
 
-            // 1. Calculate Font Size (90% Width for safety margin)
+            // 1. Calculate Font Size for Target Text
+            // We want it to be 90% of width
             const baseFont = 200;
-            ctx.font = `bold ${baseFont}px "Pretendard", sans-serif`;
+            ctx.font = `900 ${baseFont}px "Pretendard", sans-serif`; // Max weight for thick strokes
             const measure = ctx.measureText(TARGET_TEXT);
-            const targetWidth = width * 0.90;
+            const targetWidth = width * 0.95;
             const fontSize = Math.floor(baseFont * (targetWidth / measure.width));
 
             // 2. Generate Target Points
-            ctx.font = `bold ${fontSize}px "Pretendard", sans-serif`;
+            ctx.font = `900 ${fontSize}px "Pretendard", sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillStyle = 'black';
@@ -75,6 +77,7 @@ export function SecretZone() {
             const cols = width * dpr;
 
             let pIndex = 0;
+            // Step by SAMPLE_GAP * dpr to sample correctly in device pixels
             for (let y = 0; y < height * dpr; y += SAMPLE_GAP * dpr) {
                 for (let x = 0; x < width * dpr; x += SAMPLE_GAP * dpr) {
                     const i = (y * cols + x) * 4;
@@ -82,7 +85,7 @@ export function SecretZone() {
                         points.push({
                             id: pIndex++,
                             x: Math.random() * width,
-                            y: -Math.random() * 800 - 100, // Rain from high up
+                            y: -Math.random() * 800 - 100,
                             originX: x / dpr,
                             originY: y / dpr,
                             char: CHARS[Math.floor(Math.random() * CHARS.length)],
@@ -90,7 +93,7 @@ export function SecretZone() {
                             vy: 0,
                             swayOffset: Math.random() * Math.PI * 2,
                             swaySpeed: 0.02 + Math.random() * 0.03,
-                            fallSpeed: 3 + Math.random() * 3, // Faster fall for snappy feel
+                            fallSpeed: 2 + Math.random() * 2,
                             landed: false
                         });
                     }
@@ -119,9 +122,9 @@ export function SecretZone() {
                 layoutOffsetRef.current = bottomOffset;
             } else if (state === 'CENTERING') {
                 if (centeringProgressRef.current < 1) {
-                    centeringProgressRef.current += 0.015; // Speed up lift
+                    centeringProgressRef.current += 0.01;
                     const t = centeringProgressRef.current;
-                    const ease = 1 - Math.pow(1 - t, 3); // CubicOut
+                    const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
                     layoutOffsetRef.current = bottomOffset * (1 - ease);
                 } else {
                     stateRef.current = 'INTERACTIVE';
@@ -129,9 +132,8 @@ export function SecretZone() {
                 }
             }
 
-            // Particle Appearance
-            ctx.font = '10px sans-serif';
-            ctx.fillStyle = '#111';
+            ctx.font = `${PARTICLE_FONT_SIZE}px sans-serif`;
+            ctx.fillStyle = '#000000';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
@@ -141,68 +143,51 @@ export function SecretZone() {
                 let tx = p.originX;
                 let ty = p.originY + layoutOffsetRef.current;
 
-                // --- PHASE LOGIC ---
-
                 if (state === 'FALLING') {
                     if (!p.landed) {
-                        // Falling Physics
+                        // Falling Kinematics (Cherry Blossom)
                         p.y += p.fallSpeed;
-                        p.x += Math.sin(timeRef.current * p.swaySpeed + p.swayOffset) * 0.5;
+                        p.x += Math.sin(timeRef.current * p.swaySpeed + p.swayOffset) * 1.5; // Increased sway
 
-                        // STRICT Landing
                         if (p.y >= ty) {
                             p.y = ty;
                             p.landed = true;
-                            p.vx = 0;
-                            p.vy = 0;
                         }
                     } else {
-                        // Once landed, SNAP to target X linearly to fix swaying
-                        // This ensures the text sharpens up immediately
-                        if (Math.abs(tx - p.x) > 0.5) {
-                            p.x += (tx - p.x) * 0.2;
-                        } else {
-                            p.x = tx; // Absolute snap
-                        }
+                        // Snap to X smoothly
+                        p.x += (tx - p.x) * 0.2;
                         p.y = ty;
                     }
-
                     if (p.landed) landedCount++;
                 }
 
                 else if (state === 'WAITING' || state === 'CENTERING') {
-                    // Rigid Lock
-                    p.x = tx;
-                    p.y = ty;
-                    p.vx = 0;
-                    p.vy = 0;
+                    p.x += (tx - p.x) * 0.3;
+                    p.y += (ty - p.y) * 0.3;
                 }
 
                 else if (state === 'INTERACTIVE') {
-                    // Interaction logic
                     let targetX = tx;
                     let targetY = ty;
 
                     const dx = mouseRef.current.x - p.x;
                     const dy = mouseRef.current.y - p.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    const radius = 80;
+                    const radius = 100;
 
                     if (dist < radius) {
                         const angle = Math.atan2(dy, dx);
                         const force = (radius - dist) / radius;
-                        // Repel
-                        targetX -= Math.cos(angle) * force * 100;
-                        targetY -= Math.sin(angle) * force * 100;
+                        targetX -= Math.cos(angle) * force * 150;
+                        targetY -= Math.sin(angle) * force * 150;
                     }
 
-                    // Spring return
-                    const ax = (targetX - p.x) * 0.15;
-                    const ay = (targetY - p.y) * 0.15;
+                    const ax = (targetX - p.x) * 0.1;
+                    const ay = (targetY - p.y) * 0.1;
                     p.vx += ax;
                     p.vy += ay;
-                    p.vx *= 0.8; // Dampen
-                    p.vy *= 0.8;
+                    p.vx *= 0.85;
+                    p.vy *= 0.85;
                     p.x += p.vx;
                     p.y += p.vy;
                 }
@@ -210,12 +195,11 @@ export function SecretZone() {
                 ctx.fillText(p.char, p.x, p.y);
             });
 
-            // Transition
-            if (state === 'FALLING' && landedCount >= particles.length * 0.95) {
+            if (state === 'FALLING' && landedCount >= particles.length * 0.9) {
                 stateRef.current = 'WAITING';
                 setTimeout(() => {
                     stateRef.current = 'CENTERING';
-                }, 800);
+                }, 1000);
             }
 
             animationRef.current = requestAnimationFrame(loop);
