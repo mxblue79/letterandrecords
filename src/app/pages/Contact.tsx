@@ -81,10 +81,11 @@ export function Contact() {
 
             <div className="space-y-12">
               <div>
-                <p className="text-3xl font-semibold leading-tight mb-4">함께 기록할 이야기를<br />기다립니다.</p>
+                <p className="text-3xl font-semibold leading-tight mb-4">같이 성장할 파트너를<br />기다립니다.</p>
                 <p className="text-zinc-500 text-lg">
-                  글자와기록사이는 파트너의 비전을 깊이 이해하고,<br />
-                  가장 적합한 아카이빙 솔루션을 제안합니다.
+                  디자인을 기반으로<br />
+                  고객 입장에서 고민하고,<br />
+                  성장 할 수 있는 솔루션을 제안합니다.
                 </p>
               </div>
 
