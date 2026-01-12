@@ -122,7 +122,7 @@ export function SecretZone() {
                 layoutOffsetRef.current = bottomOffset;
             } else if (state === 'CENTERING') {
                 if (centeringProgressRef.current < 1) {
-                    centeringProgressRef.current += 0.01;
+                    centeringProgressRef.current += 0.005; // Slow down the lift (was 0.01)
                     const t = centeringProgressRef.current;
                     const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
                     layoutOffsetRef.current = bottomOffset * (1 - ease);
@@ -147,7 +147,7 @@ export function SecretZone() {
                     if (!p.landed) {
                         // Falling Kinematics (Cherry Blossom)
                         p.y += p.fallSpeed;
-                        p.x += Math.sin(timeRef.current * p.swaySpeed + p.swayOffset) * 1.5; // Increased sway
+                        p.x += Math.sin(timeRef.current * p.swaySpeed + p.swayOffset) * 1.5;
 
                         if (p.y >= ty) {
                             p.y = ty;
@@ -162,8 +162,9 @@ export function SecretZone() {
                 }
 
                 else if (state === 'WAITING' || state === 'CENTERING') {
-                    p.x += (tx - p.x) * 0.3;
-                    p.y += (ty - p.y) * 0.3;
+                    // Much smoother lerp to avoid "whirring" snap
+                    p.x += (tx - p.x) * 0.05;
+                    p.y += (ty - p.y) * 0.05;
                 }
 
                 else if (state === 'INTERACTIVE') {
@@ -236,7 +237,7 @@ export function SecretZone() {
     return (
         <div
             ref={containerRef}
-            className="mt-32 h-64 w-full relative cursor-default select-none group"
+            className="mt-0 h-[400px] w-full relative cursor-default select-none group"
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}

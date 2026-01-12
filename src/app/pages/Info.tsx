@@ -190,9 +190,10 @@ export function Info() {
                                 </div>
                             )}
                         </div>
-                    </div>
-                    <div className="hidden md:block">
-                        <SecretZone />
+
+                        <div className="hidden md:block !mt-2">
+                            <SecretZone />
+                        </div>
                     </div>
                 </section>
 
