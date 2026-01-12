@@ -70,7 +70,10 @@ export function Info() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
                         {services.map((s, i) => (
                             <div key={i}>
-                                <h3 className="text-lg font-bold mb-3 border-l-2 border-black pl-3">{s.category}</h3>
+                                <h3 className="text-lg font-bold mb-3 flex items-center gap-3">
+                                    <span className="w-[2px] h-[14px] bg-black shrink-0"></span>
+                                    {s.category}
+                                </h3>
                                 <ul className="space-y-1">
                                     {s.items.map((item, idx) => (
                                         <li key={idx} className="text-zinc-800 text-sm md:text-base leading-relaxed break-keep">
