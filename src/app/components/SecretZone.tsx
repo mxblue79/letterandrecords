@@ -43,21 +43,26 @@ export function SecretZone() {
         const ctx = canvas?.getContext('2d');
         if (!container || !canvas || !ctx) return;
 
-        const init = () => {
+        const init = async () => {
+            await document.fonts.ready; // Ensure fonts are loaded
+
             const width = container.clientWidth;
             const height = container.clientHeight;
             const dpr = window.devicePixelRatio || 1;
 
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
+            // Fix: Use integer dimensions to prevent pixel shift/skewing
+            const canvasWidth = Math.floor(width * dpr);
+            const canvasHeight = Math.floor(height * dpr);
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
             ctx.scale(dpr, dpr);
             canvas.style.width = `${width}px`;
             canvas.style.height = `${height}px`;
 
             // 1. Calculate Font Size for Target Text
-            // We want it to be 90% of width
             const baseFont = 200;
-            ctx.font = `900 ${baseFont}px "Pretendard", sans-serif`; // Max weight for thick strokes
+            ctx.font = `900 ${baseFont}px "Pretendard", sans-serif`;
             const measure = ctx.measureText(TARGET_TEXT);
             const targetWidth = width * 0.95;
             const fontSize = Math.floor(baseFont * (targetWidth / measure.width));
@@ -69,18 +74,21 @@ export function SecretZone() {
             ctx.fillStyle = 'black';
 
             ctx.clearRect(0, 0, width, height);
-            ctx.fillText(TARGET_TEXT, width / 2, height / 2);
+            ctx.fillText(TARGET_TEXT, width / 2, height / 2); // Draw relative to logical size
 
-            const imageData = ctx.getImageData(0, 0, width * dpr, height * dpr);
+            // Use strict integer dimensions for data
+            const imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
             const data = imageData.data;
             const points: Particle[] = [];
-            const cols = width * dpr;
+            const cols = canvasWidth; // Use actual image width stride
 
             let pIndex = 0;
-            // Step by SAMPLE_GAP * dpr to sample correctly in device pixels
-            for (let y = 0; y < height * dpr; y += SAMPLE_GAP * dpr) {
-                for (let x = 0; x < width * dpr; x += SAMPLE_GAP * dpr) {
+            // Iterate using integer steps
+            for (let y = 0; y < canvasHeight; y += Math.floor(SAMPLE_GAP * dpr)) {
+                for (let x = 0; x < canvasWidth; x += Math.floor(SAMPLE_GAP * dpr)) {
+                    // Safe integer index calculation
                     const i = (y * cols + x) * 4;
+
                     if (data[i + 3] > 128) {
                         points.push({
                             id: pIndex++,
