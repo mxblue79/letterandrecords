@@ -1,6 +1,6 @@
-import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '../components/ui/button';
+import { ArrowRight, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -10,18 +10,55 @@ export function Contact() {
     budget: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const recordTypes = [
-    { id: 'paper', label: '종이 기록 (출판/디자인)' },
-    { id: 'video', label: '영상 기록 (모션/아카이브)' },
-    { id: 'space', label: '공간 기록 (전시/행사)' },
-    { id: 'data', label: '데이터 기록 (웹/앱/시스템)' },
+    { id: 'design', label: '디자인' },
+    { id: 'publishing', label: '출판' },
+    { id: 'archive', label: '아카이브' },
+    { id: 'video', label: '영상' },
+    { id: 'event', label: '행사' },
+    { id: 'web', label: '웹' },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('기록 의뢰서가 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
-    setFormData({ name: '', email: '', recordType: [], budget: '', message: '' });
+
+    if (isSubmitting) return;
+
+    // Hardcoded keys for immediate testing
+    const serviceId = 'service_03oxntq';
+    const templateId = 'template_m8lrvwv';
+    const publicKey = 'F79lL7AquLUcBMhGe';
+
+    if (!serviceId || !templateId || !publicKey) {
+      alert('이메일 설정이 완료되지 않았습니다. 관리자에게 문의해주세요.\n(.env 파일 설정을 확인해주세요)');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          record_types: formData.recordType.join(', '),
+        },
+        publicKey
+      );
+
+      alert('상담 신청이 성공적으로 접수되었습니다.\n빠른 시일 내에 연락드리겠습니다.');
+      setFormData({ name: '', email: '', recordType: [], budget: '', message: '' });
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      alert('메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleTypeToggle = (type: string) => {
@@ -34,129 +71,127 @@ export function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-20 bg-[#fdfaf3]">
-      {/* Header */}
-      <section className="py-24 px-4 bg-white border-b-2 border-black">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-block px-4 py-1 bg-accent border-2 border-black rounded-full mb-8 font-black uppercase text-sm text-black">START YOUR ARCHIVE</div>
-          <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tighter uppercase italic leading-[0.8]">Record <br /> Request</h1>
-          <p className="text-2xl md:text-3xl font-black text-black leading-tight mt-8">
-            "당신의 가치 있는 이야기를 <br />
-            <span className="bg-primary/50 text-white px-2 italic">우리가 기록할까요?</span>"
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen pt-12 pb-32">
+      <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
 
-      <section className="py-24 px-4 max-w-7xl mx-auto pb-48">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          {/* Info Side */}
-          <div className="lg:col-span-5 space-y-12">
+        {/* Left Column: Contact Info */}
+        <section className="col-span-1 md:col-span-4 h-full">
+          <div className="sticky top-32">
+            <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">Contact</h2>
+
+            <div className="space-y-12">
+              <div>
+                <p className="text-3xl font-semibold leading-tight mb-4">함께 기록할 이야기를<br />기다립니다.</p>
+                <p className="text-zinc-500 text-lg">
+                  글자와기록사이는 파트너의 비전을 깊이 이해하고,<br />
+                  가장 적합한 아카이빙 솔루션을 제안합니다.
+                </p>
+              </div>
+
+              <div className="space-y-6 text-base font-medium text-zinc-800">
+                <div>
+                  <span className="block text-xs text-zinc-400 uppercase mb-1">Address</span>
+                  <p>서울시 마포구 성미산로 29길 23 (연남동)</p>
+                </div>
+                <div>
+                  <span className="block text-xs text-zinc-400 uppercase mb-1">Email</span>
+                  <a href="mailto:letternrecords@gmail.com" className="hover:text-zinc-500 transition-colors">letternrecords@gmail.com</a>
+                </div>
+                <div>
+                  <span className="block text-xs text-zinc-400 uppercase mb-1">Social</span>
+                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">Instagram @textandrecord</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Right Column: Request Form */}
+        <section className="col-span-1 md:col-span-7 md:col-start-6">
+          <h2 className="text-sm font-bold uppercase tracking-wide mb-12 border-b border-black pb-2 inline-block">Request Project</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-16">
+            {/* Basic Info */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="group">
+                <label className="block text-xs font-bold uppercase text-zinc-400 mb-2 group-focus-within:text-black transition-colors">Name / Organization</label>
+                <input
+                  type="text"
+                  required
+                  name="user_name"
+                  className="w-full border-b border-zinc-200 py-3 text-lg font-medium outline-none focus:border-black transition-colors bg-transparent placeholder:text-zinc-300"
+                  placeholder="의뢰인 또는 단체명"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+              </div>
+              <div className="group">
+                <label className="block text-xs font-bold uppercase text-zinc-400 mb-2 group-focus-within:text-black transition-colors">Contact (Email)</label>
+                <input
+                  type="email"
+                  required
+                  name="user_email"
+                  className="w-full border-b border-zinc-200 py-3 text-lg font-medium outline-none focus:border-black transition-colors bg-transparent placeholder:text-zinc-300"
+                  placeholder="이메일 주소"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                />
+              </div>
+            </div>
+
+            {/* Record Types */}
             <div>
-              <h2 className="text-5xl font-black mb-12 tracking-tighter uppercase italic">CONSULTING</h2>
-              <p className="text-xl font-bold text-zinc-600 leading-relaxed mb-12">
-                글자와기록사이는 단순한 외주사가 아닙니다. <br />
-                우리는 파트너의 비전을 깊이 이해하고, 가장 적합한 아카이빙 솔루션을 제안하는 큐레이터 그룹입니다.
-              </p>
-
-              <div className="space-y-6">
-                {[
-                  { icon: MapPin, title: 'Location', value: '서울시 마포구 연남동, 책방곱셈', color: 'bg-primary' },
-                  { icon: Phone, title: 'Communication', value: '02-XXXX-XXXX | info@textandrecord.kr', color: 'bg-secondary' },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-6 p-6 bg-white border-2 border-black rounded-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-                    <div className={`w-12 h-12 ${item.color} border-2 border-black rounded-xl flex items-center justify-center`}>
-                      <item.icon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="text-xs font-black uppercase text-zinc-400 mb-1">{item.title}</h3>
-                      <p className="text-base font-black">{item.value}</p>
-                    </div>
-                  </div>
+              <label className="block text-xs font-bold uppercase text-zinc-400 mb-6">Type of Record</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {recordTypes.map((type) => (
+                  <button
+                    key={type.id}
+                    type="button"
+                    onClick={() => handleTypeToggle(type.id)}
+                    className={`text-left px-4 py-3 border transition-all duration-200 text-sm font-medium
+                                    ${formData.recordType.includes(type.id)
+                        ? 'border-black bg-black text-white'
+                        : 'border-zinc-200 text-zinc-600 hover:border-zinc-400'
+                      }`}
+                  >
+                    {type.label}
+                  </button>
                 ))}
               </div>
             </div>
 
-            {/* Visual Element */}
-            <div className="aspect-[4/5] bg-secondary border-4 border-black rounded-[4rem] shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center p-12 text-center rotate-[-2deg]">
-              <span className="text-3xl font-black italic">YOUR RECORD <br /> STARTS <br /> HERE.</span>
+            {/* Message */}
+            <div className="group">
+              <label className="block text-xs font-bold uppercase text-zinc-400 mb-2 group-focus-within:text-black transition-colors">Project Details</label>
+              <textarea
+                required
+                name="message"
+                rows={6}
+                className="w-full border-b border-zinc-200 py-3 text-lg font-medium outline-none focus:border-black transition-colors bg-transparent placeholder:text-zinc-300 resize-none leading-relaxed"
+                placeholder="프로젝트의 목적, 일정, 예산 등 구체적인 내용을 목적과 내용을 들려주세요."
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              />
             </div>
-          </div>
 
-          {/* Form Side - Request Form */}
-          <div className="lg:col-span-7 bg-white border-4 border-black p-12 rounded-[4rem] shadow-[20px_20px_0px_0px_#faff00]">
-            <h2 className="text-4xl font-black mb-12 tracking-tighter uppercase flex items-center gap-4">
-              <span className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center text-xl italic">?</span>
-              기록 의뢰서 작성
-            </h2>
-
-            <form onSubmit={handleSubmit} className="space-y-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label className="block text-sm font-black uppercase mb-4 ml-2">의뢰인/단체명</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Name / Organization"
-                    className="w-full border-2 border-black rounded-full px-8 py-4 focus:bg-primary/10 transition-colors bg-zinc-50 font-bold outline-none"
-                    value={formData.name}
-                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-black uppercase mb-4 ml-2">연락처 (이메일)</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="email@example.com"
-                    className="w-full border-2 border-black rounded-full px-8 py-4 focus:bg-secondary/10 transition-colors bg-zinc-50 font-bold outline-none"
-                    value={formData.email}
-                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-black uppercase mb-6 ml-2 italic">어떤 형태의 기록을 원하시나요?</label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {recordTypes.map(type => (
-                    <button
-                      key={type.id}
-                      type="button"
-                      onClick={() => handleTypeToggle(type.id)}
-                      className={`px-6 py-4 border-2 border-black text-left font-black transition-all flex items-center justify-between ${formData.recordType.includes(type.id)
-                        ? 'bg-black text-white shadow-inner scale-[0.98]'
-                        : 'bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-zinc-50'
-                        }`}
-                    >
-                      {type.label}
-                      {formData.recordType.includes(type.id) && <span>✓</span>}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-black uppercase mb-4 ml-2">프로젝트의 목적과 내용을 들려주세요</label>
-                <textarea
-                  required
-                  rows={6}
-                  placeholder="당신이 기록하고 싶은 가치와 목적에 대해 자유롭게 적어주세요."
-                  className="w-full border-2 border-black rounded-[2.5rem] px-8 py-6 focus:bg-accent/5 transition-colors bg-zinc-50 font-bold outline-none resize-none"
-                  value={formData.message}
-                  onChange={e => setFormData({ ...formData, message: e.target.value })}
-                />
-              </div>
-
-              <Button
+            {/* Submit Button */}
+            <div className="pt-8">
+              <button
                 type="submit"
-                className="w-full py-10 text-3xl font-black uppercase rounded-none border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                disabled={isSubmitting}
+                className="group flex items-center gap-3 text-xl font-bold border-b-2 border-transparent hover:border-black pb-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                REQUEST CONSULTING <ArrowRight className="ml-4 w-8 h-8" />
-              </Button>
-            </form>
-          </div>
-        </div>
-      </section>
+                {isSubmitting ? (
+                  <>SENDING... <Loader2 className="w-5 h-5 animate-spin" /></>
+                ) : (
+                  <>SEND REQUEST <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" /></>
+                )}
+              </button>
+            </div>
+          </form>
+        </section>
+
+      </div>
     </div>
   );
 }
