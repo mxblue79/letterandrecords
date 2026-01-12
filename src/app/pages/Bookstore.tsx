@@ -1,4 +1,5 @@
 import { BookOpen, Music, Users, Instagram, ArrowUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { useEffect, useState } from 'react';
 import { getInstagramPosts, urlFor, type SanityInstagramPost } from '../../lib/sanity';
@@ -20,51 +21,53 @@ export function Bookstore() {
     fetchPosts();
   }, []);
 
-  const programs = [
+  const contents = [
     {
-      title: '북콘서트',
-      desc: '저자와 독자가 만나는 문화 공간',
-      detail: '매월 마지막 주 금요일',
-      icon: Music
-    },
-    {
+      id: 'curation',
       title: '큐레이션 서가',
-      desc: '매달 새로운 주제로 선별된 책들',
-      detail: '월간 테마 기획전',
+      desc: '창작자에게 영감을 주는 디자이너의 선별 큐레이션과 독립서적',
+      detail: "Designer's Selection",
       icon: BookOpen
     },
     {
-      title: '작가 모임',
-      desc: '작가, 디자이너, 편집자들의 교류',
-      detail: '창작자 네트워킹',
+      id: 'performance',
+      title: '공연 / 북콘서트',
+      desc: '음악과 이야기가 흐르는 라이브 스테이지',
+      detail: 'Live Performance',
+      icon: Music
+    },
+    {
+      id: 'rental',
+      title: '대관',
+      desc: '전시, 촬영, 모임을 위한 공간 공유',
+      detail: 'Space Rental',
       icon: Users
     },
   ];
 
   return (
-    <div className="min-h-screen pt-12 pb-32 scroll-smooth">
+    <div className="min-h-screen pt-12 pb-12 scroll-smooth">
       <div className="max-w-[1400px] mx-auto px-8">
 
         {/* Header Section */}
-        <section className="mb-24 md:mb-32">
+        <section className="mb-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-black pb-8">
             <div>
               <span className="text-sm font-bold uppercase tracking-wide mb-4 block">Bookstore the X</span>
               <h1 className="text-4xl md:text-6xl font-medium leading-tight tracking-tight">
-                물리적 공간에서<br />
-                기록을 만납니다.
+                책방을 매개로<br />
+                다양한 문화실험을 하는 곳
               </h1>
             </div>
-            <p className="text-lg md:text-xl text-zinc-600 max-w-md font-normal leading-relaxed">
-              디지털 기록이 물리적 경험으로 변하는 곳.<br />
-              책방곱셈은 사람과 책, 그리고 기록이 만나는<br />
-              오프라인 거점입니다.
+            <p className="text-lg md:text-xl text-zinc-500 max-w-xl font-normal leading-relaxed">
+              책방 곱하기 공연, 책방 곱하기 전시, 책방 곱하기 북콘서트 등<br />
+              책방 속 다양한 문화활동을 진행하는 문화거점공간
             </p>
           </div>
         </section>
 
         {/* Info Grid */}
-        <section className="mb-24">
+        <section className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             <div className="aspect-[4/3] bg-zinc-100 overflow-hidden">
               <img
@@ -73,7 +76,7 @@ export function Bookstore() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="flex flex-col justify-center space-y-8">
+            <div className="flex flex-col justify-end space-y-8">
               <div>
                 <h3 className="text-lg font-bold mb-2">Location</h3>
                 <p className="text-zinc-600 leading-relaxed">
@@ -88,25 +91,33 @@ export function Bookstore() {
                   <span className="text-zinc-400 text-sm">(Closed on Mondays)</span>
                 </p>
               </div>
+              <div className="pt-4">
+                <Button variant="outline" className="rounded-none border-black hover:bg-black hover:text-white transition-colors w-full md:w-auto justify-start h-auto py-3 px-4" asChild>
+                  <a href="https://instagram.com/bookstorethex" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <Instagram size={18} />
+                    <span>Instagram @bookstorethex</span>
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Programs List */}
-        <section className="mb-24">
-          <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">Programs</h2>
+        <section className="mb-20">
+          <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">Contents</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {programs.map((program, i) => {
-              const Icon = program.icon;
+            {contents.map((item, i) => {
+              const Icon = item.icon;
               return (
-                <div key={i} className="group border-t border-zinc-200 pt-6 hover:border-black transition-colors">
+                <Link to={`/bookstore/${item.id}`} key={i} className="group border-t border-zinc-200 pt-6 hover:border-black transition-colors block">
                   <div className="mb-4 text-zinc-400 group-hover:text-black transition-colors">
                     <Icon strokeWidth={1.5} size={32} />
                   </div>
-                  <h3 className="text-xl font-medium mb-2">{program.title}</h3>
-                  <p className="text-zinc-600 mb-4">{program.desc}</p>
-                  <p className="text-sm text-zinc-400 font-medium">{program.detail}</p>
-                </div>
+                  <h3 className="text-xl font-medium mb-2">{item.title}</h3>
+                  <p className="text-zinc-500 mb-4">{item.desc}</p>
+                  <p className="text-sm text-zinc-400 font-medium">{item.detail}</p>
+                </Link>
               );
             })}
           </div>
@@ -118,12 +129,6 @@ export function Bookstore() {
             <div>
               <h2 className="text-sm font-bold uppercase tracking-wide mb-4 border-b border-black pb-2 inline-block">Event Records</h2>
             </div>
-            <Button variant="outline" className="rounded-none border-black hover:bg-black hover:text-white transition-colors" asChild>
-              <a href="https://instagram.com/bookstorethex" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Instagram size={18} />
-                <span>Instagram@bookstorethex</span>
-              </a>
-            </Button>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-12 mb-12">

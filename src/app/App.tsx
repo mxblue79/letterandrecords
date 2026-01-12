@@ -8,6 +8,7 @@ import { ProjectDetail } from './pages/ProjectDetail';
 import { Services } from './pages/Services';
 import { Portfolio } from './pages/Portfolio';
 import { Bookstore } from './pages/Bookstore';
+import { BookstoreDetail } from './pages/BookstoreDetail';
 import { Contact } from './pages/Contact';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/portfolio" element={<Home />} />
             <Route path="/bookstore" element={<Bookstore />} />
+            <Route path="/bookstore/:id" element={<BookstoreDetail />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
