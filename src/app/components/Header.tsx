@@ -85,9 +85,9 @@ export function Header() {
         {isMenuOpen && (
           <div className="fixed inset-0 bg-background z-40 flex flex-col pt-24 px-8 animate-in fade-in duration-200">
             <div className="flex flex-col gap-8 text-2xl font-bold">
-              <Link to="/info" className="py-2 border-b border-zinc-100">글자와기록사이</Link>
+              <Link to="/info" className="py-2 border-b border-zinc-100" onClick={() => setIsMenuOpen(false)}>글자와기록사이</Link>
               {mainNavigation.map(item => (
-                <Link key={item.path} to={item.path} className="py-2 border-b border-zinc-100">
+                <Link key={item.path} to={item.path} className="py-2 border-b border-zinc-100" onClick={() => setIsMenuOpen(false)}>
                   {item.name}
                 </Link>
               ))}
