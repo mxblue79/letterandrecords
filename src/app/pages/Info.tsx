@@ -35,6 +35,10 @@ export function Info() {
 
     const history = [
         {
+            year: '2026',
+            items: [] // Placeholder
+        },
+        {
             year: '2025',
             items: ['양천구 문화플랫폼 와플(y+) 제작&운영']
         },
@@ -157,23 +161,50 @@ export function Info() {
                     </div>
                 </section>
 
-                {/* Section 3: History (Full Width Below) */}
-                <section className="col-span-1 md:col-span-12 pt-12 border-t border-zinc-200">
-                    <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">History</h2>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
-                        {history.map((item, i) => (
-                            <li key={i} className="flex gap-6 border-b border-zinc-100 pb-6 items-start">
-                                <span className="font-bold text-xl min-w-[3rem] shrink-0 text-black">{item.year}</span>
-                                <div className="space-y-1.5 pt-0.5 w-full">
-                                    {item.items.map((event, idx) => (
-                                        <p key={idx} className="text-zinc-700 font-medium leading-relaxed break-keep">
-                                            {event}
-                                        </p>
-                                    ))}
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                {/* Section 3: History (Timeline Style) */}
+                <section className="col-span-1 md:col-span-12 pt-16 border-t border-zinc-200">
+                    <div className="text-center mb-16">
+                        <h2 className="text-sm font-bold uppercase tracking-wide border-b border-black pb-2 inline-block">History</h2>
+                    </div>
+
+                    <div className="relative">
+                        {/* Central Line (Desktop) */}
+                        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-2 bottom-0 w-[1px] bg-zinc-300"></div>
+                        {/* Left Line (Mobile) */}
+                        <div className="md:hidden absolute left-4 top-2 bottom-0 w-[1px] bg-zinc-300"></div>
+
+                        <div className="space-y-12">
+                            {history.map((item, i) => {
+                                const isEven = i % 2 === 0;
+                                return (
+                                    <div key={i} className={`relative flex flex-col md:flex-row items-start md:items-center ${isEven ? 'md:flex-row-reverse' : ''}`}>
+
+                                        {/* Spacer for Desktop Balance */}
+                                        <div className="hidden md:block md:w-1/2" />
+
+                                        {/* Center Dot */}
+                                        <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full border-4 border-white z-10 box-content"></div>
+
+                                        {/* Content */}
+                                        <div className={`pl-12 md:pl-0 w-full md:w-1/2 ${isEven ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'}`}>
+                                            <span className="inline-block font-bold text-2xl mb-2">{item.year}</span>
+                                            <div className={`space-y-1 ${item.year === '2026' ? 'h-8' : ''}`}>
+                                                {item.items.length > 0 ? (
+                                                    item.items.map((event, idx) => (
+                                                        <p key={idx} className="text-zinc-600 font-medium leading-relaxed break-keep text-sm md:text-base">
+                                                            {event}
+                                                        </p>
+                                                    ))
+                                                ) : (
+                                                    <span className="text-zinc-300 text-sm">Coming Soon</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </section>
 
                 {/* Footer / Contact (Optional) */}
