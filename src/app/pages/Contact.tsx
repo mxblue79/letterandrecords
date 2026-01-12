@@ -101,8 +101,8 @@ export function Contact() {
                 <div>
                   <span className="block text-xs text-zinc-400 uppercase mb-1">Instagram</span>
                   <div className="flex flex-col gap-1">
-                    <a href="https://instagram.com/letternrecords" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">글자와기록사이 | Instagram @letternrecords</a>
-                    <a href="https://instagram.com/bookstorethex" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">책방곱셈 | Instagram @bookstorethex</a>
+                    <a href="https://instagram.com/letternrecords" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">글자와기록사이 | @letternrecords</a>
+                    <a href="https://instagram.com/bookstorethex" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">책방곱셈 | @bookstorethex</a>
                   </div>
                 </div>
               </div>
