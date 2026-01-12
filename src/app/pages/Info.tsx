@@ -34,12 +34,78 @@ export function Info() {
     ];
 
     const history = [
-        { year: '2024', event: '단행본 300종 달성 및 글로벌 디자인 어워드 노미네이트' },
-        { year: '2022', event: '브랜딩 컨설팅 영역 확장' },
-        { year: '2020', event: '단행본 누적 200종 돌파' },
-        { year: '2018', event: '책방곱셈 오픈 (연남동 본점)' },
-        { year: '2016', event: '문화예술 아카이브 프로젝트 "기록의 미학" 런칭' },
-        { year: '2015', event: '사회적기업 인증' },
+        {
+            year: '2025',
+            items: ['양천구 문화플랫폼 와플(y+) 제작&운영']
+        },
+        {
+            year: '2024',
+            items: ['지역문화 전문인력 백서 아카이빙북 제작(지역문화진흥원)']
+        },
+        {
+            year: '2023',
+            items: [
+                "문화예술치유 프로그램 지원사업 10년의 기록 '마음에도 스프링이 있다면‘ 제작(한국문화예술교육진흥원)",
+                "제주시 용담1동 아카이빙북 제작"
+            ]
+        },
+        {
+            year: '2022',
+            items: ['양천구 문화잡지 모양모양 제작(양천문화재단)']
+        },
+        {
+            year: '2021',
+            items: [
+                "'다시, 바람과함께 사라지다' 출간",
+                "양천동네이야기 제작(양천문화재단)"
+            ]
+        },
+        {
+            year: '2020',
+            items: [
+                "엘지화학 70주년 아카이빙북 제작",
+                "'사회적기업가를 위한 창업가이드북' 제작"
+            ]
+        },
+        {
+            year: '2019',
+            items: [
+                "최고의 사자집단 이야기 '마포호연대기' 출간",
+                "꿈다락토요문화학교 아카이빙북 '꿈다락은 모락모락' 제작",
+                "서울연극센터 웹진 '연극인' 아카이빙북 제작"
+            ]
+        },
+        {
+            year: '2018',
+            items: [
+                "아름다운재단 전담 디자인사 선정",
+                "서울문화재단 디자인풀 선정(9기)"
+            ]
+        },
+        {
+            year: '2017',
+            items: [
+                "서울문화재단 디자인풀 선정(8기)",
+                "일본 서점 소개서 '동경책방기' 출간",
+                "예비사회적기업지정",
+                "'공공공간으로 행복한 공간 만들기' 아카이빙북 제작"
+            ]
+        },
+        {
+            year: '2016',
+            items: [
+                "메모리인한강 전시디자인(서울도서관)",
+                "대상그룹 미원 60주년 브랜드팝업북 제작",
+                "지역안내 단행본 '일곱 개의 키워드로 보는 마포이야기' 출간"
+            ]
+        },
+        {
+            year: '2015',
+            items: [
+                "서울브랜드 I.SEOUL.U BI부문 최우수상 수상",
+                "개인사업자에서 주식회사로 변경"
+            ]
+        }
     ];
 
     return (
@@ -69,7 +135,7 @@ export function Info() {
                     </div>
                 </section>
 
-                {/* Section 2: Service (Right) - replacing History's old spot */}
+                {/* Section 2: Service (Right) */}
                 <section className="col-span-1 md:col-span-6 md:col-start-7">
                     <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">Service</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
@@ -94,11 +160,17 @@ export function Info() {
                 {/* Section 3: History (Full Width Below) */}
                 <section className="col-span-1 md:col-span-12 pt-12 border-t border-zinc-200">
                     <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">History</h2>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
                         {history.map((item, i) => (
-                            <li key={i} className="flex gap-6 border-b border-zinc-100 pb-4 items-start">
-                                <span className="font-bold text-xl min-w-[3rem]">{item.year}</span>
-                                <span className="text-zinc-700 font-medium pt-0.5">{item.event}</span>
+                            <li key={i} className="flex gap-6 border-b border-zinc-100 pb-6 items-start">
+                                <span className="font-bold text-xl min-w-[3rem] shrink-0 text-black">{item.year}</span>
+                                <div className="space-y-1.5 pt-0.5 w-full">
+                                    {item.items.map((event, idx) => (
+                                        <p key={idx} className="text-zinc-700 font-medium leading-relaxed break-keep">
+                                            {event}
+                                        </p>
+                                    ))}
+                                </div>
                             </li>
                         ))}
                     </ul>
