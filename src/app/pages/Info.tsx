@@ -1,7 +1,20 @@
 import { SecretZone } from '../components/SecretZone';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getSettings } from '../../lib/sanity';
+import { Download } from 'lucide-react';
 
 export function Info() {
+    const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        getSettings().then(data => {
+            if (data?.pdfUrl) {
+                setPdfUrl(data.pdfUrl);
+            }
+        });
+    }, []);
+
     const services = [
         {
             category: '아트디렉팅&디자인',
@@ -162,6 +175,20 @@ export function Info() {
                             <p>
                                 또한 연남동 끝자락에 책과 상상을 곱셈하는 실험실 &lt;책방곱셈&gt;을 운영하고 있습니다.
                             </p>
+
+                            {pdfUrl && (
+                                <div className="pt-4">
+                                    <a
+                                        href={pdfUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-sm font-bold border-b border-black pb-0.5 hover:text-zinc-600 hover:border-zinc-400 transition-colors"
+                                    >
+                                        <Download size={14} />
+                                        회사소개서 다운로드
+                                    </a>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="hidden md:block">

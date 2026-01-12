@@ -36,3 +36,7 @@ export interface SanityInstagramPost {
 export async function getInstagramPosts() {
     return await client.fetch(`*[_type == "instagram"] | order(coalesce(isPinned, false) desc, date desc)[0...99]`);
 }
+
+export async function getSettings() {
+    return await client.fetch(`*[_type == "settings"][0]{ "pdfUrl": companyProfile.asset->url }`);
+}
