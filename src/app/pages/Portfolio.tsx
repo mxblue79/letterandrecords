@@ -4,14 +4,13 @@ import { useSearchParams } from 'react-router-dom';
 
 const categories = [
   '전체',
-  '전시/도록/영상',
-  '책',
-  '브랜딩',
-  '아카이브/웹/앱',
-  '간행물',
+  '아트디렉팅&디자인',
   '출판',
-  '굿즈',
+  '홍보',
   '영상',
+  '웹 서비스',
+  '행사',
+  '서점 운영',
 ];
 
 const allTags = [
@@ -23,7 +22,7 @@ const projects = [
   {
     id: 1,
     title: '모범택시 시즌2',
-    categories: ['전시/도록/영상', '브랜딩', '영상'],
+    categories: ['아트디렉팅&디자인', '굿즈', '영상'],
     date: '2024.03',
     tags: ['#드라마굿즈', '#영상아카이브'],
     purpose: '드라마의 세계관을 물리적 기록물로 확장하여 팬들에게 깊은 몰입감 선사',
@@ -32,7 +31,7 @@ const projects = [
   {
     id: 2,
     title: '마이 데몬',
-    categories: ['전시/도록/영상', '굿즈', '영상'],
+    categories: ['아트디렉팅&디자인', '굿즈', '영상'],
     date: '2023.11',
     tags: ['#드라마굿즈', '#브랜딩'],
     purpose: '캐릭터 아카이빙을 통한 브랜드 아이덴티티 강화',
@@ -41,7 +40,7 @@ const projects = [
   {
     id: 3,
     title: '서울시 도시재생 아카이브',
-    categories: ['아카이브/웹/앱'],
+    categories: ['웹 서비스'],
     date: '2023.09',
     tags: ['#공공기관', '#디지털아카이브'],
     purpose: '도시의 변화 과정을 영구적으로 보존하기 위한 디지털 뉴스룸 구축',
@@ -50,7 +49,7 @@ const projects = [
   {
     id: 4,
     title: '국립현대미술관 전시도록',
-    categories: ['전시/도록/영상', '출판'],
+    categories: ['출판', '아트디렉팅&디자인'],
     date: '2024.01',
     tags: ['#전시도록', '#예술'],
     purpose: '전시의 찰나를 예술적 가치를 담은 책으로 영원히 기록',
@@ -59,7 +58,7 @@ const projects = [
   {
     id: 5,
     title: '한국문화예술위원회 브랜딩',
-    categories: ['브랜딩'],
+    categories: ['아트디렉팅&디자인'],
     date: '2022.05',
     tags: ['#공공기관', '#브랜딩'],
     purpose: '문화예술의 가치를 시각적으로 체계화하여 기관의 정체성 확립',
@@ -68,7 +67,7 @@ const projects = [
   {
     id: 6,
     title: '예술경영 매거진',
-    categories: ['간행물', '출판'],
+    categories: ['출판'],
     date: '2024.02',
     tags: ['#매거진', '#정기간행물'],
     purpose: '예술 현장의 동향을 정기적으로 기록하여 전문 데이터 축적',
@@ -84,10 +83,10 @@ export function Portfolio() {
   useEffect(() => {
     const filter = searchParams.get('filter');
     if (filter === 'video') setSelectedCategory('영상');
-    else if (filter === 'design') setSelectedCategory('브랜딩');
+    else if (filter === 'design') setSelectedCategory('아트디렉팅&디자인');
     else if (filter === 'publishing') setSelectedCategory('출판');
-    else if (filter === 'online') setSelectedCategory('아카이브/웹/앱');
-    else if (filter === 'event') setSelectedCategory('전시/도록/영상');
+    else if (filter === 'online') setSelectedCategory('웹 서비스');
+    else if (filter === 'event') setSelectedCategory('행사');
     else setSelectedCategory('전체');
   }, [searchParams]);
 

@@ -1,4 +1,36 @@
 export function Info() {
+    const services = [
+        {
+            category: '아트디렉팅&디자인',
+            items: ['웹 / 앱 / 3D / 모션그래픽', 'PPT 및 보고서', '리플렛, 단행본 디자인']
+        },
+        {
+            category: '출판',
+            items: ['자체 출판 / 출판 대행', '아카이빙 / 출판 컨설팅']
+        },
+        {
+            category: '홍보',
+            items: ['홍보물 제작 / 웹배너', '카드뉴스 / 숏츠', '홍보 영상 / 홍보 대행']
+        },
+        {
+            category: '영상',
+            items: ['홍보 영상 / 쇼츠', '스케치', '온라인 라이브 방송']
+        },
+        {
+            category: '웹 서비스',
+            items: ['웹배너 & 랜딩 페이지 제작', '상세 페이지 제작', '홈페이지 제작', '웹 및 앱 제작']
+        },
+        {
+            category: '행사',
+            items: ['전시회 운영 / 기념식 운영', '공연 운영 / 기타 행사']
+        },
+        {
+            category: '책방 곱셈',
+            items: ['문화공간 책방곱셈 운영']
+        }
+
+    ];
+
     const history = [
         { year: '2024', event: '단행본 300종 달성 및 글로벌 디자인 어워드 노미네이트' },
         { year: '2022', event: '브랜딩 컨설팅 영역 확장' },
@@ -8,88 +40,65 @@ export function Info() {
         { year: '2015', event: '사회적기업 인증' },
     ];
 
-    const services = [
-        { title: '디자인 & 아트디렉팅', desc: 'Brand Identity, Editorial Design' },
-        { title: '영상 & 모션그래픽', desc: 'Motion Graphics, Archive Video' },
-        { title: '온라인 서비스', desc: 'Web & App Development, Digital Archive' },
-        { title: '출판 & 아카이빙 컨설팅', desc: 'Publishing, Archiving Strategy' },
-        { title: '행사 & 전시 운영', desc: 'Exhibition Planning, Cultural Events' },
-    ];
-
-    const partners = [
-        '서울시', '국립중앙박물관', '국립현대미술관',
-        '한국문화예술위원회', '예술경영지원센터', 'SBS',
-    ];
-
     return (
         <div className="min-h-screen pt-12 pb-32 scroll-smooth">
             <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
 
-                {/* Section 1: Introduction */}
-                <section className="col-span-1 md:col-span-4">
-                    <h2 className="text-sm font-bold uppercase tracking-wide mb-6 border-b border-black pb-2 inline-block">About Us</h2>
-                    <div className="text-3xl md:text-4xl font-medium leading-tight space-y-8">
-                        <p>
-                            우리는 글자와 기록 사이의 <br />가치를 찾습니다.
-                        </p>
-                        <p className="text-lg md:text-xl font-normal text-zinc-600 leading-relaxed">
-                            디자인과 아카이빙을 통해 흩어져 있는 정보와 가치를 수집하고,
-                            지속 가능한 기록의 형태로 재구성하는 전문 아카이빙 그룹입니다.
-                        </p>
+                {/* Section 1: About Us (Left) */}
+                <section className="col-span-1 md:col-span-5">
+                    <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">About Us</h2>
+                    <div className="space-y-8">
+                        <div>
+                            <p className="text-3xl font-semibold leading-tight mb-2">디자인, 세상을 기록하다</p>
+                            <p className="text-lg text-zinc-500 font-medium">Design Records the World</p>
+                        </div>
+                        <div className="text-base md:text-lg font-normal text-zinc-800 leading-relaxed space-y-4">
+                            <p>
+                                글자와기록사이는 필요에 가치를 더하는 문화예술기업입니다.<br />
+                                디자인 전문성을 바탕으로 기업 및 단체의 가치를 높이는 다양한 활동을 하고 있습니다.
+                            </p>
+                            <p>
+                                또한 연남동 끝자락에 책과 상상을 곱셈하는 실험실 &lt;책방곱셈&gt;을 운영하고 있습니다.
+                            </p>
+                        </div>
                     </div>
                 </section>
 
-                {/* Section 2: History (Offset layout) */}
-                <section className="col-span-1 md:col-span-7 md:col-start-6">
-                    <h2 className="text-sm font-bold uppercase tracking-wide mb-6 border-b border-black pb-2 inline-block">History</h2>
-                    <ul className="space-y-6">
-                        {history.map((item, i) => (
-                            <li key={i} className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-8 border-b border-zinc-200 pb-4 last:border-0 hover:pl-2 transition-all duration-300">
-                                <span className="font-bold text-lg">{item.year}</span>
-                                <span className="md:col-span-3 text-zinc-700 font-medium">{item.event}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-
-                {/* Section 3: Services */}
-                <section className="col-span-1 md:col-span-4">
-                    <h2 className="text-sm font-bold uppercase tracking-wide mb-6 border-b border-black pb-2 inline-block">Services</h2>
-                    <ul className="space-y-8">
+                {/* Section 2: Service (Right) - replacing History's old spot */}
+                <section className="col-span-1 md:col-span-6 md:col-start-7">
+                    <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">Service</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
                         {services.map((s, i) => (
-                            <li key={i} className="group">
-                                <h3 className="text-xl font-bold mb-1 group-hover:text-zinc-500 transition-colors">{s.title}</h3>
-                                <p className="text-sm text-zinc-400 font-normal">{s.desc}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-
-                {/* Section 4: Partners */}
-                <section className="col-span-1 md:col-span-7 md:col-start-6">
-                    <h2 className="text-sm font-bold uppercase tracking-wide mb-6 border-b border-black pb-2 inline-block">Partners</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4">
-                        {partners.map((p, i) => (
-                            <div key={i} className="text-lg font-medium border-b border-zinc-100 py-2">
-                                {p}
+                            <div key={i}>
+                                <h3 className="text-lg font-bold mb-3 border-l-2 border-black pl-3">{s.category}</h3>
+                                <ul className="space-y-1">
+                                    {s.items.map((item, idx) => (
+                                        <li key={idx} className="text-zinc-800 text-sm md:text-base leading-relaxed break-keep">
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         ))}
                     </div>
                 </section>
 
-                {/* Section 5: Contact Info (Simple) */}
-                <section className="col-span-1 md:col-span-12 mt-12 pt-12 border-t border-black">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 className="text-2xl font-bold mb-4">Contact</h3>
-                            <p className="text-lg">hello@textandrecord.kr</p>
-                            <p className="text-zinc-500 mt-2">02-1234-5678</p>
-                        </div>
-                        <div className="md:text-right">
-                            <p className="text-lg">Seoul, Republic of Korea</p>
-                            <p className="text-zinc-500 mt-2">Mapo-gu, Yanghwa-ro</p>
-                        </div>
-                    </div>
+                {/* Section 3: History (Full Width Below) */}
+                <section className="col-span-1 md:col-span-12 pt-12 border-t border-zinc-200">
+                    <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">History</h2>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
+                        {history.map((item, i) => (
+                            <li key={i} className="flex gap-6 border-b border-zinc-100 pb-4 items-start">
+                                <span className="font-bold text-xl min-w-[3rem]">{item.year}</span>
+                                <span className="text-zinc-700 font-medium pt-0.5">{item.event}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+
+                {/* Footer / Contact (Optional) */}
+                <section className="col-span-1 md:col-span-12 mt-12">
+                    {/* Contact info can go here if needed, or rely on global footer */}
                 </section>
 
             </div>

@@ -10,11 +10,13 @@ const mainNavigation = [
 
 const filterNavigation = [
   { name: 'ALL', path: '/portfolio' },
-  { name: '디자인 & 아트디렉팅', path: '/portfolio?filter=design' },
-  { name: '출판 & 아카이빙 컨설팅', path: '/portfolio?filter=publishing' },
-  { name: '영상 & 모션그래픽', path: '/portfolio?filter=video' },
-  { name: '웹', path: '/portfolio?filter=online' },
-  { name: '행사 & 전시 운영', path: '/portfolio?filter=event' },
+  { name: '아트디렉팅&디자인', path: '/portfolio?filter=art_design' },
+  { name: '출판', path: '/portfolio?filter=publishing' },
+  { name: '홍보', path: '/portfolio?filter=promotion' },
+  { name: '영상', path: '/portfolio?filter=video' },
+  { name: '웹 서비스', path: '/portfolio?filter=web_service' },
+  { name: '행사', path: '/portfolio?filter=event' },
+  { name: '책방 곱셈', path: '/portfolio?filter=bookstore' },
 ];
 
 export function Header() {

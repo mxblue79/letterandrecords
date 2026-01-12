@@ -29,11 +29,13 @@ const MASONRY_PATTERN = [
 ];
 
 const CATEGORY_DISPLAY = [
-  { key: '디자인', label: '디자인' },
+  { key: '아트디렉팅&디자인', label: '디자인' },
   { key: '출판', label: '출판' },
-  { key: '영상', label: '모션' },
-  { key: '웹', label: '웹' },
+  { key: '홍보', label: '홍보' },
+  { key: '영상', label: '영상' },
+  { key: '웹 서비스', label: '웹' },
   { key: '행사', label: '행사' },
+  { key: '책방 곱셈', label: '책방곱셈' },
 ];
 
 // ... (existing code)
@@ -168,20 +170,24 @@ export function Home() {
 
     if (!filter) return sortedProjects;
 
-    const categoryMap: Record<string, string> = {
-      'design': '디자인',
-      'publishing': '출판',
-      'video': '영상',
-      'online': '웹',
-      'event': '행사'
+    const categoryMap: Record<string, string[]> = {
+      'art_design': ['디자인', '아트디렉팅', '아트디렉팅&디자인', '브랜딩'],
+      'publishing': ['출판', '출판 & 아카이빙 컨설팅'],
+      'promotion': ['홍보', '브랜딩'],
+      'video': ['영상', '모션', '모션그래픽', '영상 & 모션그래픽'],
+      'web_service': ['웹', '앱', '웹 서비스', '아카이브/웹/앱'],
+      'event': ['행사', '전시', '행사 & 전시 운영'],
+      'bookstore': ['서점', '책방', '서점 운영', '책방 곱셈']
     };
 
-    const targetCategory = categoryMap[filter];
-    if (!targetCategory) return sortedProjects;
+    const targetCategories = categoryMap[filter];
+    if (!targetCategories) return sortedProjects;
 
     // Multi-select Filtering Logic:
-    // Check if the project's category array INCLUDES the target category
-    return sortedProjects.filter(p => p.categories && p.categories.includes(targetCategory));
+    // Check if the project's category array INCLUDES ANY of the target categories
+    return sortedProjects.filter(p =>
+      p.categories && p.categories.some(cat => targetCategories.includes(cat))
+    );
   }, [location.search, projects]);
 
   // Reset visible count when filter changes

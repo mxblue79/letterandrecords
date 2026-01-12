@@ -6,6 +6,7 @@ import { Info } from './pages/Info';
 import { About } from './pages/About';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { Services } from './pages/Services';
+import { Portfolio } from './pages/Portfolio';
 import { Bookstore } from './pages/Bookstore';
 import { Contact } from './pages/Contact';
 
