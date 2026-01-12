@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Book, Utensils, Package, Home, ArrowRight } from 'lucide-react';
+import { Book, Utensils, Package, Home, ArrowRight, X } from 'lucide-react';
 
 export function Originals() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const originals = [
         {
             id: 'publishing',
@@ -9,7 +12,7 @@ export function Originals() {
             subtitle: 'Independent Books',
             desc: '우리가 출판한 책들',
             icon: Book,
-            link: '/portfolio?filter=original_publishing' // Filter for own books
+            link: '/originals/publishing' // Dedicated Grid Page
         },
         {
             id: 'recipe',
@@ -17,7 +20,8 @@ export function Originals() {
             subtitle: 'F&B Brand',
             desc: '엄마의 자서전과 영상, 그리고 요리 레시피',
             icon: Utensils,
-            link: '#' // Future teaser page
+            link: '#', // Future teaser page
+            isComingSoon: true
         },
         {
             id: 'objects',
@@ -25,7 +29,8 @@ export function Originals() {
             subtitle: 'Curated Goods',
             desc: '일상에 영감을 더하는 상품들',
             icon: Package,
-            link: '#' // Future shop link
+            link: '#', // Future shop link
+            isComingSoon: true
         },
         {
             id: 'rental',
@@ -36,6 +41,13 @@ export function Originals() {
             link: '/bookstore/rental'
         }
     ];
+
+    const handleItemClick = (e: React.MouseEvent, isComingSoon?: boolean) => {
+        if (isComingSoon) {
+            e.preventDefault();
+            setIsModalOpen(true);
+        }
+    };
 
     return (
         <div className="min-h-screen pt-12 pb-32 animate-in fade-in duration-500">
@@ -58,9 +70,10 @@ export function Originals() {
                             <Link
                                 key={item.id}
                                 to={item.link}
-                                className="group relative aspect-square md:aspect-[4/3] bg-zinc-50 border border-zinc-200 p-8 flex flex-col justify-between hover:border-black transition-all duration-300"
+                                onClick={(e) => handleItemClick(e, item.isComingSoon)}
+                                className="group relative aspect-square md:aspect-[4/3] bg-zinc-50 border border-zinc-200 p-8 flex flex-col justify-between hover:border-black transition-all duration-300 cursor-pointer"
                             >
-                                {/* Top Right Arrow */}
+                                {/* Top Right Arrow (Hide if coming soon, or change icon?) Keep arrow for consistency but maybe different behavior */}
                                 <div className="absolute top-8 right-8 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                                     <ArrowRight strokeWidth={1} size={32} />
                                 </div>
@@ -84,6 +97,37 @@ export function Originals() {
                 </div>
 
             </div>
+
+            {/* Coming Soon Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setIsModalOpen(false)}>
+                    <div className="bg-white p-8 md:p-12 shadow-xl border border-zinc-200 max-w-md w-full mx-4 text-center relative" onClick={e => e.stopPropagation()}>
+                        <button
+                            onClick={() => setIsModalOpen(false)}
+                            className="absolute top-4 right-4 text-zinc-400 hover:text-black transition-colors"
+                        >
+                            <X size={24} />
+                        </button>
+
+                        <div className="mb-6 flex justify-center text-zinc-300">
+                            <Package size={48} strokeWidth={1} />
+                        </div>
+
+                        <h3 className="text-2xl font-semibold mb-2">준비 중입니다</h3>
+                        <p className="text-zinc-500 mb-8">
+                            더 좋은 콘텐츠를 위해 준비하고 있습니다.<br />
+                            조금만 기다려주세요!
+                        </p>
+
+                        <button
+                            onClick={() => setIsModalOpen(false)}
+                            className="bg-black text-white px-8 py-3 text-sm font-medium hover:bg-zinc-800 transition-colors w-full"
+                        >
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
