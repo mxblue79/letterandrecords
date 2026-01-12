@@ -1,4 +1,4 @@
-import { BookOpen, Music, Users, Instagram, ArrowUp } from 'lucide-react';
+import { BookOpen, Music, Users, Instagram, ArrowUp, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { useEffect, useState } from 'react';
@@ -110,7 +110,14 @@ export function Bookstore() {
             {contents.map((item, i) => {
               const Icon = item.icon;
               return (
-                <Link to={`/bookstore/${item.id}`} key={i} className="group border-t border-zinc-200 pt-6 hover:border-black transition-colors block">
+                <Link
+                  to={`/bookstore/${item.id}`}
+                  key={i}
+                  className="group relative border-t border-zinc-200 pt-6 pr-6 hover:border-black hover:bg-zinc-50 transition-all duration-300 block"
+                >
+                  <div className="absolute top-6 right-0 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <ArrowRight strokeWidth={1} size={24} />
+                  </div>
                   <div className="mb-4 text-zinc-400 group-hover:text-black transition-colors">
                     <Icon strokeWidth={1.5} size={32} />
                   </div>
