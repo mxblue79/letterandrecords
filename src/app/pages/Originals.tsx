@@ -7,7 +7,7 @@ export function Originals() {
             id: 'publishing',
             title: 'Publishing',
             subtitle: 'Independent Books',
-            desc: '우리가 직접 쓰고 만든 책들을 소개합니다.',
+            desc: '우리가 출판한 책들',
             icon: Book,
             link: '/portfolio?filter=original_publishing' // Filter for own books
         },
@@ -15,7 +15,7 @@ export function Originals() {
             id: 'recipe',
             title: "Mom's Recipe",
             subtitle: 'F&B Brand',
-            desc: '정성으로 담아낸 엄마의 레시피 브랜드.',
+            desc: '엄마의 자서전과 영상, 그리고 요리 레시피',
             icon: Utensils,
             link: '#' // Future teaser page
         },
@@ -23,14 +23,14 @@ export function Originals() {
             id: 'objects',
             title: 'Objects',
             subtitle: 'Curated Goods',
-            desc: '일상에 영감을 더하는 큐레이션 오브젝트.',
+            desc: '일상에 영감을 더하는 상품들',
             icon: Package,
             link: '#' // Future shop link
         },
         {
             id: 'rental',
             title: 'Space Rental',
-            desc: '전시, 촬영, 모임을 위한 공간 공유.',
+            desc: '공연, 행사, 독서모임, 기타 모임을 위한 공간 대여',
             subtitle: 'Space Share',
             icon: Home,
             link: '/bookstore/rental'
@@ -45,7 +45,7 @@ export function Originals() {
                 <section className="mb-20 border-b border-black pb-8">
                     <span className="text-sm font-bold uppercase tracking-wide mb-4 block">Originals</span>
                     <h1 className="text-4xl md:text-6xl font-medium leading-tight tracking-tight">
-                        제공하는<br />
+                        우리가 제공하는<br />
                         고유한 기록
                     </h1>
                 </section>
