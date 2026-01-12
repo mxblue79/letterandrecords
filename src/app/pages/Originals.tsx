@@ -45,7 +45,7 @@ export function Originals() {
                 <section className="mb-20 border-b border-black pb-8">
                     <span className="text-sm font-bold uppercase tracking-wide mb-4 block">Originals</span>
                     <h1 className="text-4xl md:text-6xl font-medium leading-tight tracking-tight">
-                        우리가 만드는<br />
+                        제공하는<br />
                         고유한 기록
                     </h1>
                 </section>
