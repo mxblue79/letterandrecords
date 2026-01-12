@@ -143,7 +143,7 @@ export function Info() {
     ];
 
     return (
-        <div className="min-h-screen pt-12 pb-32 scroll-smooth">
+        <div className="min-h-screen pt-12 pb-16 scroll-smooth">
             <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
 
                 {/* Section 1: About Us (Left) */}
@@ -259,10 +259,7 @@ export function Info() {
                     </div>
                 </section>
 
-                {/* Footer / Contact (Optional) */}
-                <section className="col-span-1 md:col-span-12 mt-12">
-                    {/* Contact info can go here if needed, or rely on global footer */}
-                </section>
+
 
             </div>
         </div>
