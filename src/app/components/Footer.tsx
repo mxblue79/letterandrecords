@@ -29,10 +29,10 @@ export function Footer() {
 
         {/* Column 3: Social */}
         <div className="flex flex-col space-y-4">
-          <h4 className="font-medium text-black">Social</h4>
+          <h4 className="font-medium text-black">Instagram</h4>
           <div className="flex flex-col space-y-2">
-            <a href="#" className="hover:text-black transition-colors">Instagram</a>
-            <a href="#" className="hover:text-black transition-colors">Behance</a>
+            <a href="https://instagram.com/letternrecords" target="_blank" rel="noreferrer" className="hover:text-black transition-colors">글자와기록사이 | @letternrecords</a>
+            <a href="https://instagram.com/bookstorethex" target="_blank" rel="noreferrer" className="hover:text-black transition-colors">책방곱셈 | @bookstorethex</a>
           </div>
         </div>
 

@@ -71,7 +71,7 @@ export function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-12 pb-32">
+    <div className="min-h-screen pt-12 pb-12">
       <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
 
         {/* Left Column: Contact Info */}
@@ -98,8 +98,11 @@ export function Contact() {
                   <a href="mailto:letternrecords@gmail.com" className="hover:text-zinc-500 transition-colors">letternrecords@gmail.com</a>
                 </div>
                 <div>
-                  <span className="block text-xs text-zinc-400 uppercase mb-1">Social</span>
-                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">Instagram @textandrecord</a>
+                  <span className="block text-xs text-zinc-400 uppercase mb-1">Instagram</span>
+                  <div className="flex flex-col gap-1">
+                    <a href="https://instagram.com/letternrecords" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">글자와기록사이 | Instagram @letternrecords</a>
+                    <a href="https://instagram.com/bookstorethex" target="_blank" rel="noreferrer" className="hover:text-zinc-500 transition-colors">책방곱셈 | Instagram @bookstorethex</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -175,7 +178,7 @@ export function Contact() {
             </div>
 
             {/* Submit Button */}
-            <div className="pt-8">
+            <div className="pt-4">
               <button
                 type="submit"
                 disabled={isSubmitting}
