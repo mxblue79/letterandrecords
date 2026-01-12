@@ -16,7 +16,7 @@ const filterNavigation = [
   { name: '영상', path: '/portfolio?filter=video' },
   { name: '웹 서비스', path: '/portfolio?filter=web_service' },
   { name: '행사', path: '/portfolio?filter=event' },
-  { name: '책방 곱셈', path: '/portfolio?filter=bookstore' },
+  { name: '책방곱셈', path: '/portfolio?filter=bookstore' },
 ];
 
 export function Header() {

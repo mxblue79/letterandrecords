@@ -1,3 +1,5 @@
+import { SecretZone } from '../components/SecretZone';
+
 export function Info() {
     const services = [
         {
@@ -22,11 +24,11 @@ export function Info() {
         },
         {
             category: '행사',
-            items: ['전시회 운영 / 기념식 운영', '공연 운영 / 기타 행사']
+            items: ['교육 프로그램 진행', '전시회 운영 / 기념식 운영', '공연 운영 / 기타 행사']
         },
         {
-            category: '책방 곱셈',
-            items: ['문화공간 책방곱셈 운영']
+            category: '책방곱셈',
+            items: ['문화공간 책방곱셈 운영', '북콘서트 / 음악콘서트 / 전시 / 각종 모임 대관']
         }
 
     ];
@@ -62,6 +64,9 @@ export function Info() {
                             </p>
                         </div>
                     </div>
+                    <div className="hidden md:block">
+                        <SecretZone />
+                    </div>
                 </section>
 
                 {/* Section 2: Service (Right) - replacing History's old spot */}
@@ -71,7 +76,7 @@ export function Info() {
                         {services.map((s, i) => (
                             <div key={i}>
                                 <h3 className="text-lg font-bold mb-3 flex items-center gap-3">
-                                    <span className="w-[2px] h-[14px] bg-black shrink-0"></span>
+                                    <span className="w-[2px] h-[20px] bg-black shrink-0"></span>
                                     {s.category}
                                 </h3>
                                 <ul className="space-y-1">
