@@ -119,6 +119,29 @@ export function Info() {
         }
     ];
 
+    const clients = [
+        {
+            category: 'Culture & Arts',
+            items: ['한국문화예술교육진흥원', '한국공예디자인진흥원', '지역문화진흥원', '서울문화재단 및 산하기관', '양천문화재단 등']
+        },
+        {
+            category: 'Gov & Education',
+            items: ['교육부', '서울시청', '양천구청', '서울기록원', '한양대학교', '한양여자대학교', '한국교육환경보호원', '강원대학교 등']
+        },
+        {
+            category: 'Corporate',
+            items: ['LG화학', 'LG에너지솔루션', '대상그룹', '삼성SDS']
+        },
+        {
+            category: 'Social Enterprise',
+            items: ['한국사회적기업진흥원', '서울광역자활센터', '양천사회적경제지원센터', '강남사회적경제지원센터 등']
+        },
+        {
+            category: 'Publishing',
+            items: ['눌와', '너와숲']
+        }
+    ];
+
     return (
         <div className="min-h-screen pt-12 pb-32 scroll-smooth">
             <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
@@ -214,6 +237,25 @@ export function Info() {
                                 );
                             })}
                         </div>
+                    </div>
+                </section>
+
+                {/* Section 4: Partners & Clients */}
+                <section className="col-span-1 md:col-span-12 pt-16 border-t border-zinc-200">
+                    <h2 className="text-sm font-bold uppercase tracking-wide mb-12 border-b border-black pb-2 inline-block">Partners & Clients</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12">
+                        {clients.map((group, i) => (
+                            <div key={i}>
+                                <h3 className="text-sm font-bold text-zinc-400 mb-4 uppercase tracking-wider">{group.category}</h3>
+                                <ul className="space-y-2">
+                                    {group.items.map((client, idx) => (
+                                        <li key={idx} className="text-zinc-800 font-medium text-sm md:text-base break-keep">
+                                            {client}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
                     </div>
                 </section>
 
