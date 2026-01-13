@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
+import { getSanityProjects, urlFor } from '../../lib/sanity';
 
 const categories = [
   '전체',
@@ -11,7 +12,7 @@ const categories = [
   '영상',
   '웹 서비스',
   '행사',
-  '서점 운영',
+  '책방 곱셈',
 ];
 
 const allTags = [
@@ -19,67 +20,43 @@ const allTags = [
   '#로컬크리에이터', '#사회적기업', '#매거진'
 ];
 
-const projects = [
-  {
-    id: 1,
-    title: '모범택시 시즌2',
-    categories: ['아트디렉팅&디자인', '굿즈', '영상'],
-    date: '2024.03',
-    tags: ['#드라마굿즈', '#영상아카이브'],
-    purpose: '드라마의 세계관을 물리적 기록물로 확장하여 팬들에게 깊은 몰입감 선사',
-    keywords: ['팬덤', '굿즈', '아카이빙']
-  },
-  {
-    id: 2,
-    title: '마이 데몬',
-    categories: ['아트디렉팅&디자인', '굿즈', '영상'],
-    date: '2023.11',
-    tags: ['#드라마굿즈', '#브랜딩'],
-    purpose: '캐릭터 아카이빙을 통한 브랜드 아이덴티티 강화',
-    keywords: ['브랜딩', '캐릭터', '기록']
-  },
-  {
-    id: 3,
-    title: '서울시 도시재생 아카이브',
-    categories: ['웹 서비스'],
-    date: '2023.09',
-    tags: ['#공공기관', '#디지털아카이브'],
-    purpose: '도시의 변화 과정을 영구적으로 보존하기 위한 디지털 뉴스룸 구축',
-    keywords: ['도시재생', '빅데이터', '영구보존']
-  },
-  {
-    id: 4,
-    title: '국립현대미술관 전시도록',
-    categories: ['출판', '아트디렉팅&디자인'],
-    date: '2024.01',
-    tags: ['#전시도록', '#예술'],
-    purpose: '전시의 찰나를 예술적 가치를 담은 책으로 영원히 기록',
-    keywords: ['미술관', '큐레이션', '도록']
-  },
-  {
-    id: 5,
-    title: '한국문화예술위원회 브랜딩',
-    categories: ['아트디렉팅&디자인'],
-    date: '2022.05',
-    tags: ['#공공기관', '#브랜딩'],
-    purpose: '문화예술의 가치를 시각적으로 체계화하여 기관의 정체성 확립',
-    keywords: ['CI', 'BI', '시스템']
-  },
-  {
-    id: 6,
-    title: '예술경영 매거진',
-    categories: ['출판'],
-    date: '2024.02',
-    tags: ['#매거진', '#정기간행물'],
-    purpose: '예술 현장의 동향을 정기적으로 기록하여 전문 데이터 축적',
-    keywords: ['경영', '데이터', '정론']
-  },
-];
+interface Project {
+  _id: string;
+  title: string;
+  categories: string[];
+  date: string;
+  description?: string;
+  mainImage?: any;
+  client?: string;
+  role?: string;
+}
 
 export function Portfolio() {
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getSanityProjects();
+        // Sort by date descending
+        const sorted = data.sort((a: Project, b: Project) => {
+          const dateA = a.date ? new Date(a.date).getTime() : 0;
+          const dateB = b.date ? new Date(b.date).getTime() : 0;
+          return dateB - dateA;
+        });
+        setProjects(sorted);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const filter = searchParams.get('filter');
@@ -92,9 +69,17 @@ export function Portfolio() {
   }, [searchParams]);
 
   const filteredProjects = projects.filter((p) => {
-    const categoryMatch = selectedCategory === '전체' || p.categories.includes(selectedCategory);
-    const tagMatch = !selectedTag || p.tags.includes(selectedTag);
-    return categoryMatch && tagMatch;
+    // Smart Filtering: '출판' includes '자체 출판'
+    const categoryMatch = selectedCategory === '전체' ||
+      p.categories?.includes(selectedCategory) ||
+      (selectedCategory === '출판' && p.categories?.includes('자체 출판'));
+
+    // Tag filtering (using Categories as tags for now if tags field is missing in Sanity, or map logic later)
+    // Currently Sanity schema doesn't have 'tags', so we'll disable tag filtering or usage categories.
+    // Let's rely on Category match primarily.
+    const tagMatch = !selectedTag || (p.categories && p.categories.includes(selectedTag));
+
+    return categoryMatch;
   });
 
   return (
@@ -167,17 +152,26 @@ export function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="group relative bg-white border-2 border-black rounded-[2.5rem] overflow-hidden shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all flex flex-col h-full"
+            <Link
+              to={`/project/${project._id}`}
+              key={project._id}
+              className="group relative bg-white border-2 border-black rounded-[2.5rem] overflow-hidden shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all flex flex-col h-full block"
             >
               {/* Thumbnail Area */}
               <div className="relative aspect-[4/3] bg-zinc-100 border-b-2 border-black overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-br from-zinc-200 to-zinc-300" />
+                {project.mainImage ? (
+                  <img
+                    src={urlFor(project.mainImage).width(800).url()}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-zinc-200 to-zinc-300" />
+                )}
 
                 {/* Categories - Top Left */}
                 <div className="absolute top-4 left-4 z-20 flex flex-col gap-1 items-start">
-                  {project.categories.map((cat, idx) => (
+                  {project.categories?.map((cat, idx) => (
                     <span key={idx} className="bg-white/95 backdrop-blur-sm border-2 border-black px-3 py-1 rounded-full text-[10px] font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                       {cat}
                     </span>
@@ -187,16 +181,8 @@ export function Portfolio() {
                 {/* Hover Overlay - Why & Keywords */}
                 <div className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center p-8 text-white z-10">
                   <div className="mb-6">
-                    <p className="text-xs font-black text-primary uppercase mb-2">Record Purpose</p>
-                    <p className="text-lg font-bold leading-tight italic">"{project.purpose}"</p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-black text-secondary uppercase mb-3">Key Records</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.keywords.map((kw, i) => (
-                        <span key={i} className="text-xs bg-white text-black px-2 py-1 font-black">#{kw}</span>
-                      ))}
-                    </div>
+                    <p className="text-xs font-black text-primary uppercase mb-2">Project</p>
+                    <p className="text-lg font-bold leading-tight italic">查看详情</p>
                   </div>
                 </div>
               </div>
@@ -204,21 +190,19 @@ export function Portfolio() {
               {/* Info Area */}
               <div className="p-8 flex flex-col flex-grow">
                 {/* Date instead of Category */}
-                <p className="text-sm font-black text-secondary uppercase tracking-widest mb-2">{project.date}</p>
+                <p className="text-sm font-black text-secondary uppercase tracking-widest mb-2">{project.date ? project.date.replace(/-/g, '.') : ''}</p>
                 <h3 className="text-2xl font-black mb-6 leading-tight flex-grow">{project.title}</h3>
 
                 <div className="flex items-center justify-between mt-auto">
                   <div className="flex flex-wrap gap-1">
-                    {project.tags.map(t => (
-                      <span key={t} className="text-[10px] font-bold text-zinc-400">{t}</span>
-                    ))}
+                    {/* Tags placeholder if needed */}
                   </div>
                   <div className="w-12 h-12 rounded-full border-2 border-black flex items-center justify-center group-hover:bg-primary transition-colors">
                     <ArrowRight className="w-6 h-6" />
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

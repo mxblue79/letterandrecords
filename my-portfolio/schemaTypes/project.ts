@@ -33,6 +33,7 @@ export const projectType = defineType({
                 list: [
                     { title: '아트디렉팅&디자인', value: '아트디렉팅&디자인' },
                     { title: '출판', value: '출판' },
+                    { title: '자체 출판', value: '자체 출판' },
                     { title: '홍보', value: '홍보' },
                     { title: '영상', value: '영상' },
                     { title: '웹 서비스', value: '웹 서비스' },
