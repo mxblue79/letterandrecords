@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { getSanityProject, urlFor } from '../../lib/sanity';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
+import { SEO } from '../components/SEO';
 
 // Define Custom Components for Portable Text
 const ptComponents: PortableTextComponents = {
@@ -77,6 +78,11 @@ export function ProjectDetail() {
 
     return (
         <div className="min-h-screen pb-32 bg-background">
+            <SEO
+                title={project.title}
+                description={project.description || `${project.title} - 글자와기록사이 포트폴리오`}
+                image={project.mainImage ? urlFor(project.mainImage).width(800).url() : undefined}
+            />
 
             {/* 1. Header (Sanity Style Title & Properties) */}
             <div className="max-w-[800px] mx-auto px-6 pt-24 pb-12">

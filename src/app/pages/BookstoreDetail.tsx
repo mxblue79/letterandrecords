@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 const contentMap: Record<string, {
     title: string;
@@ -59,6 +60,7 @@ export function BookstoreDetail() {
 
     return (
         <div className="min-h-screen pt-12 pb-32 animate-in fade-in duration-500">
+            <SEO title={content.title} description={content.desc} />
             <div className="max-w-[1400px] mx-auto px-8">
 
                 {/* Back Button */}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Book, Utensils, Package, Home, ArrowRight, X } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export function Originals() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,6 +52,7 @@ export function Originals() {
 
     return (
         <div className="min-h-screen pt-12 pb-32 animate-in fade-in duration-500">
+            <SEO title="Originals" description="우리가 제공하는 고유한 기록: 출판, 레시피, 오브젝트, 공간" />
             <div className="max-w-[1400px] mx-auto px-8">
 
                 {/* Header */}

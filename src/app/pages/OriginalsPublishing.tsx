@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { getSanityProjects, urlFor } from '../../lib/sanity';
+import { SEO } from '../components/SEO';
 
 interface SanityProject {
     _id: string;
@@ -50,6 +51,7 @@ export function OriginalsPublishing() {
 
     return (
         <div className="min-h-screen pt-12 pb-32 animate-in fade-in duration-500">
+            <SEO title="우리가 출판한 책들" description="글자와기록사이가 직접 기획하고 출판한 고유한 이야기들을 소개합니다." />
             <div className="max-w-[1400px] mx-auto px-8">
 
                 {/* Header & Back Link */}

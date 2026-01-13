@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSettings } from '../../lib/sanity';
 import { Download } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export function Info() {
     const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -157,6 +158,10 @@ export function Info() {
 
     return (
         <div className="min-h-screen pt-12 pb-16 scroll-smooth">
+            <SEO
+                title="정보"
+                description="글자와기록사이는 디자인을 기반으로 기업 및 단체의 가치를 높이는 다양한 활동을 하는 문화예술기업입니다."
+            />
             <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
 
                 {/* Section 1: About Us (Left) */}

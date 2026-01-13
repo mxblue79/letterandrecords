@@ -1,5 +1,6 @@
 import { useRef, useMemo, useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 import { ArrowUp, Check } from 'lucide-react';
 import { getSanityProjects, urlFor } from '../../lib/sanity'; // Sanity Import
 
@@ -205,6 +206,7 @@ export function Home() {
 
   return (
     <div className="min-h-screen bg-background pt-8 px-4 scroll-smooth" ref={containerRef}>
+      <SEO />
       <div className="columns-1 md:columns-2 lg:columns-5 gap-x-6 gap-y-12 mx-auto max-w-[1400px]">
         {visibleProjects.map((project, index) => (
           <ProjectItem key={project._id} project={project} index={index} />

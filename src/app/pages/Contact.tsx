@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, Loader2, Check, Copy } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { SEO } from '../components/SEO';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -80,6 +81,7 @@ export function Contact() {
 
   return (
     <div className="min-h-screen pt-12 pb-12">
+      <SEO title="Contact" description="같이 성장할 파트너를 기다립니다. 프로젝트 의뢰 및 문의." />
       <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
 
         {/* Left Column: Contact Info */}

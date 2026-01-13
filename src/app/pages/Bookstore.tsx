@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button';
 import { useEffect, useState } from 'react';
 import { getInstagramPosts, urlFor, type SanityInstagramPost } from '../../lib/sanity';
 import spaceImage from '../../assets/bookstore-space.jpg';
+import { SEO } from '../components/SEO';
 
 export function Bookstore() {
   const [instagramPosts, setInstagramPosts] = useState<SanityInstagramPost[]>([]);
@@ -47,6 +48,7 @@ export function Bookstore() {
 
   return (
     <div className="min-h-screen pt-12 pb-12 scroll-smooth">
+      <SEO title="Bookstore the X" description="책방을 매개로 다양한 문화실험을 하는 곳, 책방곱셈입니다." />
       <div className="max-w-[1400px] mx-auto px-8">
 
         {/* Header Section */}

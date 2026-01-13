@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 
 const categories = [
   '전체',
@@ -98,6 +99,7 @@ export function Portfolio() {
 
   return (
     <div className="min-h-screen pt-20 bg-[#fdfaf3]">
+      <SEO title="포트폴리오" description="글자와기록사이의 다양한 프로젝트 아카이브를 확인해보세요." />
       {/* Header */}
       <section className="py-24 px-4 bg-white border-b-2 border-black">
         <div className="max-w-4xl mx-auto text-center">
