@@ -76,8 +76,7 @@ export function Bookstore() {
               </h1>
             </div>
             <p className="text-lg md:text-xl text-zinc-500 max-w-xl font-normal leading-relaxed">
-              책방 곱하기 공연, 책방 곱하기 전시, 책방 곱하기 북콘서트 등<br />
-              책방 속 다양한 문화활동을 진행하는 문화거점공간
+              책방 곱하기 공연, 책방 곱하기 전시, 책방 곱하기 북콘서트 등 책방 속 다양한 문화활동을 진행하는 문화거점공간
             </p>
           </div>
         </section>
