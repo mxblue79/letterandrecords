@@ -2,24 +2,31 @@ import { BookOpen, Music, Users, Instagram, ArrowUp, ArrowRight } from 'lucide-r
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { useEffect, useState } from 'react';
-import { getInstagramPosts, urlFor, type SanityInstagramPost } from '../../lib/sanity';
-import spaceImage from '../../assets/bookstore-space.jpg';
+import { getInstagramPosts, getSettings, urlFor, type SanityInstagramPost } from '../../lib/sanity';
+import { BookstoreCarousel } from '../components/BookstoreCarousel';
 import { SEO } from '../components/SEO';
 
 export function Bookstore() {
   const [instagramPosts, setInstagramPosts] = useState<SanityInstagramPost[]>([]);
+  const [galleryImages, setGalleryImages] = useState<any[]>([]);
   const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getInstagramPosts();
-        setInstagramPosts(data);
+        const [posts, settings] = await Promise.all([
+          getInstagramPosts(),
+          getSettings()
+        ]);
+        setInstagramPosts(posts);
+        if (settings?.gallery) {
+          setGalleryImages(settings.gallery);
+        }
       } catch (error) {
-        console.error("Failed to fetch Instagram posts:", error);
+        console.error("Failed to fetch data:", error);
       }
     };
-    fetchPosts();
+    fetchData();
   }, []);
 
   const contents = [
@@ -71,12 +78,14 @@ export function Bookstore() {
         {/* Info Grid */}
         <section className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            <div className="aspect-[4/3] bg-zinc-100 overflow-hidden">
-              <img
-                src={spaceImage}
-                alt="Bookstore Space Interior"
-                className="w-full h-full object-cover"
-              />
+            <div className="aspect-[4/3] bg-zinc-100 overflow-hidden relative">
+              {galleryImages.length > 0 ? (
+                <BookstoreCarousel images={galleryImages} />
+              ) : (
+                <div className="w-full h-full bg-zinc-200 flex items-center justify-center text-zinc-400">
+                  Loading Gallery...
+                </div>
+              )}
             </div>
             <div className="flex flex-col justify-end space-y-8">
               <div>

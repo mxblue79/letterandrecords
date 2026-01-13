@@ -38,5 +38,8 @@ export async function getInstagramPosts() {
 }
 
 export async function getSettings() {
-    return await client.fetch(`*[_type == "settings"][0]{ "pdfUrl": companyProfile.asset->url }`);
+    return await client.fetch(`*[_type == "settings"][0]{ 
+        "pdfUrl": companyProfile.asset->url,
+        "gallery": bookstoreGallery
+    }`);
 }
