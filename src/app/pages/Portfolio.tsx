@@ -36,7 +36,7 @@ export function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,8 +51,6 @@ export function Portfolio() {
         setProjects(sorted);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
@@ -77,7 +75,7 @@ export function Portfolio() {
     // Tag filtering (using Categories as tags for now if tags field is missing in Sanity, or map logic later)
     // Currently Sanity schema doesn't have 'tags', so we'll disable tag filtering or usage categories.
     // Let's rely on Category match primarily.
-    const tagMatch = !selectedTag || (p.categories && p.categories.includes(selectedTag));
+
 
     return categoryMatch;
   });

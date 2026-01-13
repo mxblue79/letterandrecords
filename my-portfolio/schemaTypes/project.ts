@@ -44,10 +44,29 @@ export const projectType = defineType({
         }),
         defineField({
             name: 'mainImage',
-            title: 'Main Image',
+            title: 'Main Image (Poster)',
+            description: 'The representative image shown in the list and first in detail.',
             type: 'image',
+            options: { hotspot: true },
+        }),
+        defineField({
+            name: 'gallery',
+            title: 'Sub Images (Gallery)',
+            description: 'Additional images for the main slider (Main Image comes first, then these).',
+            type: 'array',
+            of: [{ type: 'image' }],
             options: {
-                hotspot: true,
+                layout: 'grid',
+            },
+        }),
+        defineField({
+            name: 'spreads',
+            title: 'Book Spreads (Landscape Viewer)',
+            description: 'Horizontal images shown between main info and detailed content.',
+            type: 'array',
+            of: [{ type: 'image' }],
+            options: {
+                layout: 'grid',
             },
         }),
         defineField({
@@ -65,6 +84,36 @@ export const projectType = defineType({
             title: 'Role',
             type: 'string',
         }),
+        // Publication Spec Fields
+        defineField({
+            name: 'size',
+            title: 'Size/Dimensions (규격)',
+            type: 'string',
+            description: 'e.g. 148 x 210 mm'
+        }),
+        defineField({
+            name: 'pages',
+            title: 'Pages (쪽수)',
+            type: 'string',
+            description: 'e.g. 240p'
+        }),
+        defineField({
+            name: 'paper',
+            title: 'Paper (용지)',
+            type: 'string',
+            description: 'e.g. Munken Pure 120g'
+        }),
+        defineField({
+            name: 'finishing',
+            title: 'Finishing (후가공)',
+            type: 'string',
+            description: 'e.g. Foil Stamping, Exposed Binding'
+        }),
+        defineField({
+            name: 'salesUrl',
+            title: 'Sales Link (판매처)',
+            type: 'url',
+        }),
         defineField({
             name: 'description',
             title: 'Description',
@@ -75,10 +124,69 @@ export const projectType = defineType({
             title: 'Content',
             type: 'array',
             of: [
-                { type: 'block' },
+                {
+                    type: 'block',
+                    styles: [
+                        { title: 'Normal', value: 'normal' },
+                        { title: 'H1', value: 'h1' },
+                        { title: 'H2', value: 'h2' },
+                        { title: 'H3', value: 'h3' },
+                        { title: 'Quote', value: 'blockquote' },
+                    ],
+                    marks: {
+                        decorators: [
+                            { title: 'Strong', value: 'strong' },
+                            { title: 'Emphasis', value: 'em' },
+                            { title: 'Underline', value: 'underline' },
+                            { title: 'Strike', value: 'strike-through' },
+                            // Text Alignment Decorators
+                            { title: 'Left', value: 'left' },
+                            { title: 'Center', value: 'center' },
+                            { title: 'Right', value: 'right' },
+                        ]
+                    }
+                },
                 {
                     type: 'image',
-                    options: { hotspot: true }
+                    options: { hotspot: true },
+                    fields: [
+                        {
+                            name: 'caption',
+                            type: 'string',
+                            title: 'Caption',
+                        },
+                        {
+                            name: 'layout',
+                            type: 'string',
+                            title: 'Alignment',
+                            options: {
+                                list: [
+                                    { title: 'Center', value: 'center' },
+                                    { title: 'Left', value: 'left' },
+                                    { title: 'Right', value: 'right' },
+                                ],
+                                layout: 'radio',
+                                direction: 'horizontal'
+                            },
+                            initialValue: 'center'
+                        },
+                        {
+                            name: 'size',
+                            type: 'string',
+                            title: 'Size',
+                            options: {
+                                list: [
+                                    { title: 'Full Width', value: 'full' },
+                                    { title: 'Large', value: 'large' },
+                                    { title: 'Medium', value: 'medium' },
+                                    { title: 'Small', value: 'small' },
+                                ],
+                                layout: 'radio',
+                                direction: 'horizontal'
+                            },
+                            initialValue: 'full'
+                        }
+                    ]
                 }
             ],
         }),
