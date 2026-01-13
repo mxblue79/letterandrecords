@@ -12,10 +12,12 @@ import { BookstoreDetail } from './pages/BookstoreDetail';
 import { Originals } from './pages/Originals';
 import { OriginalsPublishing } from './pages/OriginalsPublishing';
 import { Contact } from './pages/Contact';
+import { GoogleAnalytics } from './components/GoogleAnalytics';
 
 export default function App() {
   return (
     <Router>
+      <GoogleAnalytics />
       <div className="flex flex-col min-h-screen bg-background text-foreground">
         <Header />
         <main className="flex-1 w-full max-w-[1400px] mx-auto">
