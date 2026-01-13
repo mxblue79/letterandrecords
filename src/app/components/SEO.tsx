@@ -17,6 +17,10 @@ export function SEO({
     const fullTitle = title === '글자와기록사이' ? siteTitle : `${title} | 글자와기록사이`;
     const currentUrl = url || window.location.href;
 
+    // Ensure image is absolute URL
+    const domain = 'https://letterandrecords.com';
+    const fullImage = image.startsWith('http') ? image : `${domain}${image}`;
+
     return (
         <Helmet>
             {/* Basic Metadata */}
@@ -29,14 +33,14 @@ export function SEO({
             <meta property="og:url" content={currentUrl} />
             <meta property="og:title" content={fullTitle} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={image} />
+            <meta property="og:image" content={fullImage} />
 
             {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
             <meta property="twitter:url" content={currentUrl} />
             <meta property="twitter:title" content={fullTitle} />
             <meta property="twitter:description" content={description} />
-            <meta property="twitter:image" content={image} />
+            <meta property="twitter:image" content={fullImage} />
 
             {/* Canonical */}
             <link rel="canonical" href={currentUrl} />
