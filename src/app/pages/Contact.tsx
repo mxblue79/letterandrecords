@@ -87,7 +87,7 @@ export function Contact() {
         {/* Left Column: Contact Info */}
         <section className="col-span-1 md:col-span-4 h-full">
           <div className="sticky top-32">
-            <h2 className="text-sm font-bold uppercase tracking-wide mb-8 border-b border-black pb-2 inline-block">Contact</h2>
+            <h2 className="text-sm font-bold uppercase tracking-wide mb-12 border-b border-black pb-2 inline-block">Contact</h2>
 
             <div className="space-y-12">
               <div>
@@ -136,7 +136,10 @@ export function Contact() {
 
         {/* Right Column: Request Form */}
         <section className="col-span-1 md:col-span-7 md:col-start-6">
-          <h2 className="text-sm font-bold uppercase tracking-wide mb-12 border-b border-black pb-2 inline-block">Request Project</h2>
+          <div className="mb-12">
+            <h2 className="text-sm font-bold uppercase tracking-wide mb-12 border-b border-black pb-2 inline-block">Request Project</h2>
+            <p className="text-3xl font-semibold leading-tight">함께 만들고 싶은 경험과 기록을<br />문의해 주세요.</p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-16">
             {/* Basic Info */}
