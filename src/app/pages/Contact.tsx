@@ -80,9 +80,9 @@ export function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-12 pb-12">
+    <div className="min-h-screen pt-20 pb-12">
       <SEO title="Contact" description="같이 성장할 파트너를 기다립니다. 프로젝트 의뢰 및 문의." />
-      <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8">
+      <div className="max-w-[1400px] mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-8 items-start">
 
         {/* Left Column: Contact Info */}
         <section className="col-span-1 md:col-span-4 h-full">
