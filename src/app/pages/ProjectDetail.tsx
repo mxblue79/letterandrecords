@@ -300,7 +300,7 @@ export function ProjectDetail() {
                     <div className="lg:col-span-5 flex flex-col justify-between lg:h-auto py-6 lg:pt-12 lg:pb-0">
                         <div>
                             <div className="border-b-4 border-black pb-8 mb-8">
-                                <h1 className="text-3xl md:text-5xl font-black leading-tight tracking-tighter uppercase mb-6 break-keep">
+                                <h1 className="text-3xl font-semibold leading-tight mb-4 break-keep">
                                     {project.title}
                                 </h1>
 

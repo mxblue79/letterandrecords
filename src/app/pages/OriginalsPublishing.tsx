@@ -15,6 +15,7 @@ interface SanityProject {
 
 export function OriginalsPublishing() {
     const [projects, setProjects] = useState<SanityProject[]>([]);
+    const [visibleCount, setVisibleCount] = useState(20);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -69,16 +70,16 @@ export function OriginalsPublishing() {
                     </div>
                 </div>
 
-                {/* 4-Column Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-16">
-                    {projects.map((project) => (
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-16 mb-24">
+                    {projects.slice(0, visibleCount).map((project) => (
                         <Link
                             key={project._id}
                             to={`/project/${project._id}`}
                             className="group block"
                         >
+                            {/* ... (rest of the map remains same) */}
                             {/* Image Container */}
-                            <div className="relative aspect-[3/4] bg-zinc-100 mb-6 overflow-hidden border border-zinc-200">
+                            <div className="relative aspect-[3/4] bg-zinc-100 mb-3 overflow-hidden border border-zinc-200">
                                 {project.mainImage ? (
                                     <img
                                         src={urlFor(project.mainImage).width(1200).url()}
@@ -116,6 +117,18 @@ export function OriginalsPublishing() {
                         </div>
                     )}
                 </div>
+
+                {/* Pagination */}
+                {projects.length > visibleCount && (
+                    <div className="flex justify-center border-t border-zinc-200 pt-12">
+                        <button
+                            onClick={() => setVisibleCount(prev => prev + 20)}
+                            className="inline-block text-[13px] font-medium border-b border-black pb-0.5 hover:opacity-50 transition-opacity uppercase tracking-widest"
+                        >
+                            view more (+)
+                        </button>
+                    </div>
+                )}
 
             </div>
         </div>

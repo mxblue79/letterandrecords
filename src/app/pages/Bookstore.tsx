@@ -79,6 +79,7 @@ export function Bookstore() {
               </div>
             </div>
             <p className="text-base text-zinc-500 max-w-md font-normal leading-relaxed mb-1">
+              책방x공연/ 전시/ 북토크/ 모임<br />
               책방 속 다양한 문화활동을 진행하는 문화거점공간
             </p>
           </div>

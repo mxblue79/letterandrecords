@@ -6,17 +6,17 @@ import { Info } from './pages/Info';
 import { About } from './pages/About';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { Services } from './pages/Services';
-import { Portfolio } from './pages/Portfolio';
 import { Bookstore } from './pages/Bookstore';
 import { BookstoreDetail } from './pages/BookstoreDetail';
 import { Originals } from './pages/Originals';
 import { OriginalsPublishing } from './pages/OriginalsPublishing';
 import { Contact } from './pages/Contact';
 import { GoogleAnalytics } from './components/GoogleAnalytics';
-
+import { ScrollToTop } from './components/ScrollToTop';
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <GoogleAnalytics />
       <div className="flex flex-col min-h-screen bg-background text-foreground">
         <Header />
