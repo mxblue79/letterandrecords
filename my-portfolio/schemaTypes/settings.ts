@@ -22,15 +22,5 @@ export const settingsType = defineType({
                 accept: '.pdf'
             }
         }),
-        defineField({
-            name: 'bookstoreGallery',
-            title: 'Bookstore Gallery',
-            type: 'array',
-            description: 'Upload images for the Bookstore page carousel (recommended: 10 images)',
-            of: [{ type: 'image' }],
-            options: {
-                layout: 'grid'
-            }
-        }),
     ],
 })

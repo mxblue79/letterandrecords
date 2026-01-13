@@ -19,8 +19,15 @@ export function Bookstore() {
           getSettings()
         ]);
         setInstagramPosts(posts);
+
+        // Debug log
+        console.log("Fetched Settings:", settings);
+
         if (settings?.gallery) {
+          console.log("Setting Gallery Images:", settings.gallery.length);
           setGalleryImages(settings.gallery);
+        } else {
+          console.warn("No gallery found in settings");
         }
       } catch (error) {
         console.error("Failed to fetch data:", error);

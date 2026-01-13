@@ -38,8 +38,12 @@ export async function getInstagramPosts() {
 }
 
 export async function getSettings() {
-    return await client.fetch(`*[_type == "settings"][0]{ 
-        "pdfUrl": companyProfile.asset->url,
-        "gallery": bookstoreGallery
-    }`);
+    const settings = await client.fetch(`*[_type == "settings"][0]{ "pdfUrl": companyProfile.asset->url }`);
+    // Order by updated time to get the latest one
+    const bookstore = await client.fetch(`*[_type == "bookstore"] | order(_updatedAt desc)[0]{ "gallery": gallery }`);
+
+    return {
+        ...(settings || {}),
+        gallery: bookstore?.gallery || []
+    };
 }

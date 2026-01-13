@@ -1,7 +1,9 @@
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemaTypes'
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { schemaTypes } from './schemaTypes'
+
+const SETTINGS_ID = '31aae333-3eec-421b-98a7-81d2fe45e17d';
 
 export default defineConfig({
   name: 'default',
@@ -14,5 +16,12 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
+  },
+
+  document: {
+    actions: (input, context) =>
+      context.schemaType === 'settings'
+        ? input.filter(({ action }) => action && ['publish', 'discardChanges', 'restore'].includes(action))
+        : input,
   },
 })
