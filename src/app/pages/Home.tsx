@@ -127,9 +127,15 @@ function ProjectItem({ project, index }: { project: SanityProject; index: number
           </div>
         )}
       </div>
-      <div className="text-center px-2">
-        <h3 className="text-[14px] font-medium leading-tight text-black">{project.title}</h3>
-        <p className="text-[12px] text-zinc-500 mt-1 font-black">{formattedDate}</p>
+      <div className="px-2">
+        <div className="flex justify-between items-baseline gap-2">
+          <h3 className="text-[14px] font-medium leading-tight text-black flex-1 truncate text-left" title={project.title}>
+            {project.title}
+          </h3>
+          <span className="text-[12px] text-zinc-500 font-bold whitespace-nowrap">
+            {formattedDate}
+          </span>
+        </div>
       </div>
     </Link>
   );

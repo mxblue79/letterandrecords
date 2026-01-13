@@ -187,9 +187,14 @@ export function Portfolio() {
 
               {/* Info Area */}
               <div className="p-8 flex flex-col flex-grow">
-                {/* Date instead of Category */}
-                <p className="text-sm font-black text-secondary uppercase tracking-widest mb-2">{project.date ? project.date.replace(/-/g, '.') : ''}</p>
-                <h3 className="text-2xl font-black mb-6 leading-tight flex-grow">{project.title}</h3>
+                <div className="flex justify-between items-baseline mb-6 gap-4">
+                  <h3 className="text-2xl font-black leading-tight truncate flex-1" title={project.title}>
+                    {project.title}
+                  </h3>
+                  <span className="text-sm font-black text-secondary uppercase tracking-widest flex-shrink-0">
+                    {project.date ? project.date.substring(0, 7).replace('-', '.') : ''}
+                  </span>
+                </div>
 
                 <div className="flex items-center justify-between mt-auto">
                   <div className="flex flex-wrap gap-1">

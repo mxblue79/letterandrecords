@@ -98,9 +98,11 @@ export function OriginalsPublishing() {
                             </div>
 
                             <div>
-                                <div className="flex items-baseline justify-between mb-2">
-                                    <h2 className="text-lg font-medium group-hover:underline underline-offset-4 decoration-1">{project.title}</h2>
-                                    <span className="text-sm text-zinc-500 font-medium">
+                                <div className="flex items-baseline justify-between gap-4 mb-2">
+                                    <h2 className="text-lg font-medium group-hover:underline underline-offset-4 decoration-1 flex-1 truncate" title={project.title}>
+                                        {project.title}
+                                    </h2>
+                                    <span className="text-sm text-zinc-500 font-medium whitespace-nowrap">
                                         {project.date ? project.date.substring(0, 7).replace('-', '.') : ''}
                                     </span>
                                 </div>
