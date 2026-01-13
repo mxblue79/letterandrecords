@@ -9,8 +9,8 @@ interface SEOProps {
 
 export function SEO({
     title = '글자와기록사이',
-    description = '디자인을 기반으로 고객 입장에서 고민하고, 성장 할 수 있는 솔루션을 제안합니다.',
-    image = '/og-image.jpg', // Default OG image (need to ensure this exists or use a logo)
+    description = '필요에 가치를 더하는 문화예술기업, 글자와기록사이',
+    image = '/og-image.png', // Default OG image (need to ensure this exists or use a logo)
     url
 }: SEOProps) {
     const siteTitle = '글자와기록사이 | Letter & Records';
