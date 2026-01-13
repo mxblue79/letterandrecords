@@ -20,7 +20,10 @@ export async function getSanityProjects() {
 }
 
 export async function getSanityProject(id: string) {
-    return await client.fetch(`*[_type == "project" && _id == $id][0]`, { id });
+    return await client.fetch(`*[_type == "project" && _id == $id][0]{
+        ...,
+        relatedProjects[]->{ _id, title, mainImage, date, categories }
+    }`, { id });
 }
 
 // Instagram Data Interface

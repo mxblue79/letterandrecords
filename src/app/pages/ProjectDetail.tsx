@@ -350,6 +350,57 @@ export function ProjectDetail() {
                                     )}
                                 </div>
                             )}
+
+                            {/* Promotions / External Links */}
+                            {project.promotions && project.promotions.length > 0 && (
+                                <div className="mb-12">
+                                    <h3 className="text-xs font-black uppercase text-zinc-400 tracking-widest mb-4">Promotions & Links</h3>
+                                    <div className="space-y-3">
+                                        {project.promotions.map((promo: any, index: number) => (
+                                            <a
+                                                key={index}
+                                                href={promo.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="block group"
+                                            >
+                                                <div className="flex items-baseline justify-between border-b border-zinc-200 pb-2 group-hover:border-black transition-colors">
+                                                    <span className="font-bold text-lg group-hover:text-black transition-colors">{promo.title}</span>
+                                                    <span className="text-xs text-zinc-400 group-hover:text-black transition-colors">↗</span>
+                                                </div>
+                                                {promo.description && (
+                                                    <p className="text-sm text-zinc-500 mt-1">{promo.description}</p>
+                                                )}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Related Projects */}
+                            {project.relatedProjects && project.relatedProjects.length > 0 && (
+                                <div className="mb-12">
+                                    <h3 className="text-xs font-black uppercase text-zinc-400 tracking-widest mb-4">Related Projects</h3>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {project.relatedProjects.map((related: any) => (
+                                            <Link key={related._id} to={`/portfolio/${related._id}`} className="group block">
+                                                <div className="aspect-[3/4] bg-zinc-100 mb-2 overflow-hidden rounded-sm">
+                                                    {related.mainImage ? (
+                                                        <img
+                                                            src={urlFor(related.mainImage).width(400).url()}
+                                                            alt={related.title}
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-zinc-300 text-xs">No Image</div>
+                                                    )}
+                                                </div>
+                                                <h4 className="font-bold text-sm leading-tight group-hover:underline">{related.title}</h4>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Metadata Flex - Vertical List for Right Column (Aligned to Bottom) */}

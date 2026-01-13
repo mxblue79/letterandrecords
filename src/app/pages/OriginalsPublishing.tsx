@@ -60,14 +60,17 @@ export function OriginalsPublishing() {
                         <ArrowLeft size={16} />
                         Back to Originals
                     </Link>
-                    <h1 className="text-4xl md:text-5xl font-medium leading-tight tracking-tight">
-                        우리가 출판한<br />
-                        책들
-                    </h1>
+                    <div>
+                        <h1 className="text-3xl font-semibold leading-tight mb-2">
+                            우리가 출판한<br />
+                            책들
+                        </h1>
+                        <p className="text-lg text-zinc-500 font-medium">Books we published</p>
+                    </div>
                 </div>
 
-                {/* 2-Column Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+                {/* 4-Column Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-16">
                     {projects.map((project) => (
                         <Link
                             key={project._id}
@@ -94,24 +97,19 @@ export function OriginalsPublishing() {
                                 </div>
                             </div>
 
-                            {/* Text Content */}
                             <div>
                                 <div className="flex items-baseline justify-between mb-2">
-                                    <h2 className="text-2xl font-medium group-hover:underline underline-offset-4 decoration-1">{project.title}</h2>
-                                    <span className="text-sm text-zinc-400">
+                                    <h2 className="text-lg font-medium group-hover:underline underline-offset-4 decoration-1">{project.title}</h2>
+                                    <span className="text-sm text-zinc-500 font-medium">
                                         {project.date ? project.date.substring(0, 7).replace('-', '.') : ''}
                                     </span>
-                                </div>
-                                {/* Using categories as tags/subtitle */}
-                                <div className="flex gap-2 text-sm text-zinc-500">
-                                    {project.categories?.filter(cat => !['자체 출판', 'Originals'].includes(cat)).join(', ')}
                                 </div>
                             </div>
                         </Link>
                     ))}
 
                     {projects.length === 0 && (
-                        <div className="col-span-2 py-32 text-center text-zinc-400">
+                        <div className="col-span-4 py-32 text-center text-zinc-400">
                             아직 등록된 도서가 없습니다.
                         </div>
                     )}

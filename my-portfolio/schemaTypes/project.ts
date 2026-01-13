@@ -190,5 +190,27 @@ export const projectType = defineType({
                 }
             ],
         }),
+        // New Fields for Extended Content
+        defineField({
+            name: 'promotions',
+            title: 'Promotions / External Links (홍보/링크)',
+            type: 'array',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'title', title: 'Link Title', type: 'string' },
+                        { name: 'link', title: 'URL', type: 'url' },
+                        { name: 'description', title: 'Short Description', type: 'string' }
+                    ]
+                }
+            ]
+        }),
+        defineField({
+            name: 'relatedProjects',
+            title: 'Related Projects (관련 출판/프로젝트)',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'project' } }]
+        })
     ],
 })

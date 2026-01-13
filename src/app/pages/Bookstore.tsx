@@ -70,13 +70,16 @@ export function Bookstore() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-black pb-8">
             <div>
               <span className="text-sm font-bold uppercase tracking-wide mb-4 block">Bookstore the X</span>
-              <h1 className="text-4xl md:text-6xl font-medium leading-tight tracking-tight">
-                책방을 매개로<br />
-                다양한 문화실험을 하는 곳
-              </h1>
+              <div>
+                <h1 className="text-3xl font-semibold leading-tight mb-2">
+                  책방을 매개로<br />
+                  다양한 문화실험을 하는 곳
+                </h1>
+                <p className="text-lg text-zinc-500 font-medium">Culture Laboratory through Books</p>
+              </div>
             </div>
-            <p className="text-lg md:text-xl text-zinc-500 max-w-xl font-normal leading-relaxed">
-              책방 곱하기 공연, 책방 곱하기 전시, 책방 곱하기 북콘서트 등 책방 속 다양한 문화활동을 진행하는 문화거점공간
+            <p className="text-base text-zinc-500 max-w-md font-normal leading-relaxed mb-1">
+              책방 속 다양한 문화활동을 진행하는 문화거점공간
             </p>
           </div>
         </section>

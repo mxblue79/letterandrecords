@@ -58,10 +58,13 @@ export function Originals() {
                 {/* Header */}
                 <section className="mb-20 border-b border-black pb-8">
                     <span className="text-sm font-bold uppercase tracking-wide mb-4 block">Originals</span>
-                    <h1 className="text-4xl md:text-6xl font-medium leading-tight tracking-tight">
-                        우리가 제공하는<br />
-                        고유한 기록
-                    </h1>
+                    <div>
+                        <h1 className="text-3xl font-semibold leading-tight mb-2">
+                            우리가 제공하는<br />
+                            고유한 기록
+                        </h1>
+                        <p className="text-lg text-zinc-500 font-medium">Original Records we provide</p>
+                    </div>
                 </section>
 
                 {/* 2x2 Grid */}
