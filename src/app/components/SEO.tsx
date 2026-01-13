@@ -44,6 +44,21 @@ export function SEO({
 
             {/* Canonical */}
             <link rel="canonical" href={currentUrl} />
+
+            {/* JSON-LD Structured Data */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "Organization",
+                    "name": "글자와기록사이",
+                    "url": "https://letterandrecords.com",
+                    "logo": "https://letterandrecords.com/og-image.png",
+                    "description": "필요에 가치를 더하는 문화예술기업, 글자와기록사이",
+                    "sameAs": [
+                        "https://instagram.com/bookstorethex"
+                    ]
+                })}
+            </script>
         </Helmet>
     );
 }
