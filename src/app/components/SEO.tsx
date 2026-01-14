@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
@@ -15,10 +16,29 @@ export function SEO({
 }: SEOProps) {
     const siteTitle = '글자와기록사이 | Letter & Records';
     const fullTitle = title === '글자와기록사이' ? siteTitle : `${title} | 글자와기록사이`;
-    const currentUrl = url || window.location.href;
+    const domain = typeof window !== 'undefined' ? window.location.origin : 'https://letterandrecords.com';
+
+    // Construct Canonical URL (Exclude query params & normalize paths)
+    const currentUrl = useMemo(() => {
+        if (url) return url;
+        if (typeof window === 'undefined') return '';
+
+        let pathname = window.location.pathname;
+
+        // Normalize /portfolio to / to avoid duplicate content punishment
+        if (pathname === '/portfolio') {
+            pathname = '/';
+        }
+
+        // Remove trailing slash if not root
+        if (pathname.length > 1 && pathname.endsWith('/')) {
+            pathname = pathname.slice(0, -1);
+        }
+
+        return `${domain}${pathname}`;
+    }, [url, domain]);
 
     // Ensure image is absolute URL
-    const domain = 'https://letterandrecords.com';
     const fullImage = image.startsWith('http') ? image : `${domain}${image}`;
 
     return (
