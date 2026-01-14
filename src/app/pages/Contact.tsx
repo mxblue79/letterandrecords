@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ArrowRight, Loader2, Check, Copy } from 'lucide-react';
+import { ArrowRight, Loader2 } from 'lucide-react';
+import { EmailCopy } from '../components/EmailCopy';
 import emailjs from '@emailjs/browser';
 import { SEO } from '../components/SEO';
 
@@ -12,14 +13,6 @@ export function Contact() {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isEmailCopied, setIsEmailCopied] = useState(false);
-
-  const handleEmailCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigator.clipboard.writeText('letternrecords@gmail.com');
-    setIsEmailCopied(true);
-    setTimeout(() => setIsEmailCopied(false), 2000);
-  };
 
   const recordTypes = [
     { id: 'design', label: '디자인' },
@@ -106,21 +99,7 @@ export function Contact() {
                 </div>
                 <div>
                   <span className="block text-xs text-zinc-400 uppercase mb-1">Email</span>
-                  <div className="relative group">
-                    <button
-                      onClick={handleEmailCopy}
-                      className="hover:text-zinc-500 transition-colors text-left flex items-center gap-2 group-hover:opacity-70"
-                    >
-                      letternrecords@gmail.com
-                      <Copy size={14} className="text-zinc-400 opacity-0 group-hover:opacity-100 transition-all" />
-                    </button>
-
-                    {/* Copied Toast/Message */}
-                    <div className={`absolute left-0 -top-8 bg-black text-white text-xs px-3 py-1.5 rounded transition-all duration-300 pointer-events-none flex items-center gap-1.5 ${isEmailCopied ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-                      <Check size={12} />
-                      주소를 복사하였습니다
-                    </div>
-                  </div>
+                  <EmailCopy email="letternrecords@gmail.com" showIcon={true} />
                 </div>
                 <div>
                   <span className="block text-xs text-zinc-400 uppercase mb-1">Instagram</span>

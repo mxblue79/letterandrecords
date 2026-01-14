@@ -1,4 +1,5 @@
 import { BookOpen, Music, Users, Instagram, ArrowUp, ArrowRight } from 'lucide-react';
+import { EmailCopy } from '../components/EmailCopy';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { useEffect, useState } from 'react';
@@ -110,6 +111,15 @@ export function Bookstore() {
                   Tuesday - Sunday<br />
                   12:00 PM - 09:00 PM<br />
                   <span className="text-zinc-400 text-sm">(Closed on Mondays)</span>
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold mb-2">Contact</h3>
+                <p className="text-zinc-600 leading-relaxed">
+                  <EmailCopy
+                    email="bookstorethex@gmail.com"
+                    className="underline underline-offset-4 decoration-zinc-200"
+                  />
                 </p>
               </div>
               <div className="pt-4">
